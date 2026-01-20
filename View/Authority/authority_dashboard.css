@@ -1,0 +1,179 @@
+/* Sidebar Styling (Matches other dashboards) */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd; /* CityWatch Blue */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #4fc3f7;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #e1f5fe;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background-color: #01579b;
+    color: white;
+}
+
+/* Content Area */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+
+.page-title {
+    color: #0277bd;
+    margin-bottom: 20px;
+}
+
+/* Filter Form */
+.filter-form {
+    margin-bottom: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 1px solid #b3e5fc;
+}
+
+.filter-form select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Incident Card Design */
+.incident-card {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #b3e5fc; /* Light blue border */
+    max-width: 800px;
+}
+
+.incident-card h4 {
+    font-size: 1.5em;
+    color: #0277bd; /* CityWatch Blue */
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f8ff;
+    padding-bottom: 10px;
+}
+
+.incident-card p {
+    font-size: 1.05em;
+    color: #444;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Images */
+.incident-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.incident-images img.incident-image {
+    max-width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Resource Form inside Card */
+.incident-card .resource-form {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+.incident-card .resource-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: #0277bd;
+}
+
+.checkbox-group {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    cursor: pointer;
+    font-size: 0.95em;
+}
+
+.incident-card input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Button Styling */
+.incident-card .btn {
+    background-color: #0288d1;  /* Blue button */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.incident-card .btn:hover {
+    background-color: #01579b; /* Darker blue */
+}
+
+.incident-card .btn:disabled {
+    background-color: #cfd8dc;
+    cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-left: 220px;
+}

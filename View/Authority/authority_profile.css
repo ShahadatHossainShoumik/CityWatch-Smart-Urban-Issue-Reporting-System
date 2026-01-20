@@ -1,0 +1,181 @@
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #4fc3f7;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #e1f5fe;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background-color: #01579b;
+    color: white;
+}
+
+/* Content Area */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #0277bd;
+    margin-bottom: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #b3e5fc;
+    margin-bottom: 25px;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.profile-card h3 {
+    margin-top: 0;
+    color: #0277bd;
+    border-bottom: 1px solid #f0f8ff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.profile-card p {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #444;
+}
+
+/* Password Change Card */
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #b3e5fc;
+    margin-bottom: 20px;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #0277bd;
+}
+
+/* Form fields */
+.formGrid .field {
+    margin-bottom: 15px;
+}
+
+.formGrid label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.formGrid input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.formGrid input[type="password"]:focus {
+    border-color: #0288d1;
+    outline: none;
+}
+
+.hint {
+    color: #777;
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Submit button */
+.primary {
+    background-color: #0288d1; /* CityWatch Blue */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.primary:hover {
+    background-color: #01579b;
+}
+
+/* Status message */
+.status-message {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    max-width: 600px;
+    text-align: center;
+}
+
+.status-message.success {
+    color: #155724;
+    background-color: #eafaf1; /* Light green for success remains ok */
+    border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* Footer */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-left: 220px;
+}

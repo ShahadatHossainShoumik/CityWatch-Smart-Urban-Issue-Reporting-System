@@ -1,0 +1,190 @@
+/* Profile Page Layout */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #0277bd; /* CityWatch Blue */
+}
+
+/* Profile Card (Top Section) */
+.profileCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    border: 1px solid #b3e5fc;
+}
+
+.avatarCol {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #b3e5fc; /* Light blue border */
+    padding: 2px;
+}
+
+.uploadBtn {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #0288d1;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.uploadBtn:hover {
+    color: #01579b;
+}
+
+.uploadBtn input {
+    display: none;
+}
+
+.avatarPreview {
+    display: none;
+    width: 100px;
+    margin-top: 10px;
+    border-radius: 50%;
+}
+
+.infoCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.infoRow {
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: #444;
+    border-bottom: 1px solid #f0f8ff;
+    padding-bottom: 5px;
+}
+
+.infoRow span {
+    font-weight: bold;
+    color: #0277bd;
+    width: 120px;
+    display: inline-block;
+}
+
+/* Edit & Password Cards */
+.card {
+    background: #fff;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #b3e5fc;
+}
+
+.card h3 {
+    margin-bottom: 20px;
+    color: #0277bd;
+    border-bottom: 1px solid #e1f5fe;
+    padding-bottom: 10px;
+}
+
+/* Form Grid Layout */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.field.full {
+    grid-column: span 2;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+input:focus {
+    border-color: #0288d1;
+    outline: none;
+}
+
+.hint {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Buttons */
+button.primary {
+    background: #0288d1; /* Blue */
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+button.primary:hover {
+    background: #01579b; /* Darker Blue */
+}
+
+/* Readonly fields styling */
+.readonly-field {
+    background-color: #e1f5fe; /* Very light blue background */
+    color: #555;
+    cursor: not-allowed;
+    border-color: #b3e5fc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profileCard {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .infoRow span {
+        display: block;
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: span 1;
+    }
+}

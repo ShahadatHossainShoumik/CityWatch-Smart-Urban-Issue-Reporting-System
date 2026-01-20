@@ -1,0 +1,163 @@
+/* Sidebar Styling (Matches Dashboard) */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd; /* CityWatch Blue */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #4fc3f7;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #e1f5fe;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background-color: #01579b;
+    color: white;
+}
+
+/* Content Area */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+
+.page-title {
+    color: #0277bd;
+    margin-bottom: 25px;
+}
+
+/* Incident Card Styling */
+.incident-card {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #b3e5fc;
+    max-width: 800px;
+}
+
+.incident-card h4 {
+    font-size: 1.5em;
+    color: #0277bd;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f8ff;
+    padding-bottom: 10px;
+}
+
+.incident-card p {
+    font-size: 1.05em;
+    color: #444;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Resource Deployed Highlight */
+.resource-deployed {
+    background-color: #e1f5fe;
+    padding: 8px;
+    border-radius: 5px;
+    border-left: 4px solid #0288d1;
+    margin-top: 10px;
+    color: #01579b !important;
+}
+
+/* Images */
+.incident-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.incident-images img.incident-image {
+    max-width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Action Form */
+.action-form {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+}
+
+/* Buttons */
+.btn-resolved {
+    background-color: #2e7d32; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-resolved:hover {
+    background-color: #1b5e20;
+}
+
+.btn-fake {
+    background-color: #d32f2f; /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-fake:hover {
+    background-color: #b71c1c;
+}
+
+/* Footer */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-left: 220px;
+}

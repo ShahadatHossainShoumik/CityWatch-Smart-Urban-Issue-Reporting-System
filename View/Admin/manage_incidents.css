@@ -1,0 +1,183 @@
+/* Sidebar Styling (Matches Dashboard) */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd; /* CityWatch Blue */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #4fc3f7;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #e1f5fe;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background-color: #01579b;
+    color: white;
+}
+
+/* Content Area */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #0277bd;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Search and Filter Bar */
+.top-bar {
+    margin-bottom: 30px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #b3e5fc;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input,
+.search-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-form input {
+    flex: 2; /* Takes up more space */
+}
+
+.search-form select {
+    flex: 1;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-form button:hover {
+    background-color: #01579b;
+}
+
+/* Incident Card Styling */
+.incident-card {
+    background: #fff;
+    border: 1px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+.incident-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #0277bd;
+    font-size: 1.4rem;
+}
+
+.incident-card p {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* Status Colors */
+.status-pending {
+    color: #f57f17; /* Orange */
+    font-weight: bold;
+}
+
+.status-reviewed {
+    color: #2e7d32; /* Green */
+    font-weight: bold;
+}
+
+/* Images */
+.incident-images {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.incident-images img {
+    max-width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Delete Button */
+.btn-delete {
+    background-color: #d32f2f; /* Red */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #b71c1c;
+}
+
+/* Footer */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-left: 220px;
+}

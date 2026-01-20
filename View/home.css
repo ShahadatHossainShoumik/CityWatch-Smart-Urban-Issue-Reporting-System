@@ -1,0 +1,112 @@
+/* 1. Basic Setup */
+body {
+    font-family: sans-serif; /* Standard clean font */
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue; /* Very light blue background */
+    color: #333;
+}
+
+/* 2. Header Design */
+header {
+    background-color: skyblue;
+    padding: 20px;
+    display: flex; /* Aligns Logo and Nav side-by-side */
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+nav ul {
+    list-style: none; /* Removes bullets */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Aligns links horizontally */
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* 3. Hero Section (Banner) */
+#hero {
+    background-color: #4fc3f7; /* Brighter blue */
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#hero h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* 4. Incident Cards Section */
+#incidents {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.incident-container {
+    display: flex; /* Makes cards sit in a row */
+    justify-content: center; /* Centers them */
+    gap: 20px; /* Space between cards */
+    flex-wrap: wrap; /* Wraps to next line on small screens */
+    margin-top: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 2px solid lightblue;
+    border-radius: 10px; /* Rounded corners */
+    width: 300px;
+    padding: 15px;
+    text-align: left;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Keeps image looking good */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.card h4 {
+    color: #0277bd; /* Dark blue text */
+    margin-bottom: 5px;
+}
+
+/* 5. About & Contact Sections */
+#about, #contact {
+    background-color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin: 20px auto;
+    width: 80%; /* Takes up 80% of screen width */
+    border-radius: 10px;
+}
+
+#about h3, #contact h3 {
+    color: #0288d1;
+}
+
+/* 6. Footer */
+footer {
+    background-color: #0277bd; /* Dark blue footer */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+

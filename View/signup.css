@@ -1,0 +1,142 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: sans-serif;
+    background-color: aliceblue; /* Light blueish background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+header {
+    background-color: skyblue;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    color: white;
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Main Content Alignment */
+main {
+    flex: 1; /* Pushes footer to bottom */
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Sign Up Section Styling */
+#signup-section {
+    background-color: white;
+    padding: 30px;
+    width: 400px; /* Slightly wider for better fit */
+    border: 2px solid lightblue;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#signup-section h2 {
+    color: #0277bd; /* Dark blue title */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between elements */
+}
+
+.signup-form label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.signup-form input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Input Focus Effect */
+.signup-form input:focus {
+    border-color: #0288d1;
+    outline: none;
+}
+
+/* Button Styling */
+.signup-form button {
+    background-color: #0288d1; /* CityWatch Blue */
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.signup-form button:hover {
+    background-color: #01579b; /* Darker blue */
+}
+
+/* Error/Status Messages (Spans) */
+.signup-form span {
+    font-size: 0.8rem;
+    color: red;
+    margin-top: -10px; /* Pull closer to input */
+    margin-bottom: 5px;
+}
+
+/* Link Styling */
+.signup-form p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.signup-form a {
+    color: #0288d1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}

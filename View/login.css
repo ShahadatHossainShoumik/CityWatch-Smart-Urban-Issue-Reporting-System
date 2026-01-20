@@ -1,0 +1,115 @@
+/* 1. Basic Setup */
+body {
+    font-family: sans-serif;
+    background-color: aliceblue;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* 2. Header Design */
+header {
+    background-color: rgb(18, 146, 196);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* 3. Login Box Design */
+#login-container {
+    width: 350px;
+    margin: 60px auto; /* Centers the box vertically and horizontally */
+    background-color: white;
+    padding: 30px;
+    border: 2px solid rgb(107, 196, 226);
+    border-radius: 10px;
+    text-align: center;
+}
+
+#login-container h2 {
+    color: black;
+    margin-bottom: 20px;
+}
+
+/* 4. Form Styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Align labels to the left */
+}
+
+.login-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.login-form input, 
+.login-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-form button {
+    background-color: rgb(68, 163, 201) ;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-form button:hover {
+    background-color: #01579b; /* Darker blue on hover */
+}
+
+.login-form p {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-form p a {
+    color: #0288d1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* 5. Footer Design */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed; /* Sticks to bottom */
+    bottom: 0;
+    width: 100%;
+}

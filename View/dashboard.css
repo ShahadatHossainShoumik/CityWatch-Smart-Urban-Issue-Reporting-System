@@ -1,0 +1,237 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: sans-serif;
+    background-color: aliceblue; /* Light Blue Background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd; /* CityWatch Blue */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #4fc3f7; /* Lighter blue separator */
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #e1f5fe; /* Very light blue text */
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s, background-color 0.3s;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+    background-color: #0288d1; /* Slightly lighter blue on hover */
+}
+
+/* Content Section */
+.content {
+    margin-left: 220px;
+    padding: 30px;
+    flex-grow: 1;
+}
+
+/* Header Section */
+header {
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+header .search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+header input,
+header select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* Incident Card */
+.incident {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid lightblue;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.incident h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #0277bd;
+}
+
+.incident p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.incident-actions button {
+    background-color: skyblue;
+    color: #000;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.incident-actions button:hover {
+    background-color: #4fc3f7;
+}
+
+/* General Buttons */
+button {
+    background-color: #0288d1; /* Blue button */
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #01579b; /* Darker blue */
+}
+
+/* New Incident Form */
+#newIncidentForm {
+    background-color: #e1f5fe; /* Light blue form background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border: 1px solid #81d4fa;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Profile Section */
+#profile {
+    margin-top: 20px;
+}
+
+#profile button {
+    background-color: #0288d1;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#profile button:hover {
+    background-color: #01579b;
+}
+
+/* Popup for Comments */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    display: none;
+    border: 2px solid #0277bd;
+}
+
+.popup .hidden {
+    display: none;
+}
+
+.popup h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #0277bd;
+}
+
+.popup textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: sans-serif;
+}
+
+.popup button {
+    margin-top: 10px;
+    background-color: #0288d1;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #01579b;
+}
+
+/* Footer Section */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto;
+}

@@ -1,0 +1,147 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: aliceblue; /* CityWatch:  Light Blue Background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Content Section */
+.content {
+    margin: 0 auto;
+    padding: 40px 20px;
+    max-width: 1200px;
+    flex: 1; /* Pushes footer to bottom */
+}
+
+/* Header Styling */
+h2 {
+    font-size: 2.5em;
+    color: #0277bd; /* CityWatch Blue */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Dashboard Analytics Section */
+.dashboard-analytics {
+    display: grid;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.analytics-box {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #b3e5fc; /* Light Blue Border */
+    text-align: center;
+}
+
+.analytics-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-color: #0288d1;
+}
+
+.analytics-box h4 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.analytics-box p {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #0288d1; /* Blue numbers */
+}
+
+/* Quick Actions Section */
+.quick-actions {
+    margin-top: 50px;
+}
+
+.quick-actions h3 {
+    font-size: 2em;
+    color: #0277bd;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 2px solid #e1f5fe;
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    padding: 20px;
+    background-color: #0288d1; /* CityWatch Blue */
+    color: white;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-action i {
+    font-size: 1.2em;
+}
+
+.btn-action:hover {
+    background-color: #01579b; /* Darker Blue */
+}
+
+/* Logout Button Styling */
+.logout-btn-container {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.logout-btn {
+    background-color: #d32f2f; /* Red for logout */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-btn:hover {
+    background-color: #b71c1c;
+}
+
+.logout-btn i {
+    margin-right: 8px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #0277bd;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+    width: 100%;
+}

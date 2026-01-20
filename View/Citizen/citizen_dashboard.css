@@ -1,0 +1,110 @@
+/* 1. Top Bar Layout */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 2. Search Form Elements */
+.search-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.search-form input,
+.search-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-form button {
+    background-color: #0288d1; /* CityWatch Blue */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #01579b;
+}
+
+/* 3. Incident Card Design */
+.incident-card {
+    background: #fff;
+    border: 1px solid #b3e5fc; /* Light blue border */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+.incident-card h3 {
+    margin: 0 0 10px 0;
+    color: #0277bd; /* Dark blue title */
+}
+
+.incident-card p {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* 4. Images in Card */
+.incident-images {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.incident-images img {
+    max-width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* 5. Action Buttons */
+.incident-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn.upvote {
+    background-color: #0288d1; /* Blue for upvote */
+    color: white;
+}
+
+.btn.upvote:hover {
+    background-color: #01579b;
+}
+
+.btn.downvote {
+    background-color: #e0e0e0; /* Grey for downvote */
+    color: #333;
+}
+
+.btn.downvote:hover {
+    background-color: #d6d6d6;
+}

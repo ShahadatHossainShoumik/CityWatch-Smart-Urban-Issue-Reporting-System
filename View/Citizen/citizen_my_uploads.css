@@ -1,0 +1,117 @@
+/* Incident Card Styling */
+.incident-card {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #b3e5fc; /* Light blue border */
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.incident-card h3 {
+    font-size: 1.5em;
+    color: #0277bd; /* CityWatch Blue */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e1f5fe;
+    padding-bottom: 10px;
+}
+
+.incident-card label {
+    font-weight: bold;
+    color: #555;
+    margin-top: 15px;
+    display: block;
+    font-size: 0.95em;
+}
+
+/* Input Fields */
+.incident-card input[type="text"], 
+.incident-card textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+.incident-card input[type="file"] {
+    padding: 10px 0;
+    margin-top: 5px;
+}
+
+/* Save Button */
+.btn-submit {
+    background-color: #0288d1; /* Blue */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #01579b; /* Darker Blue */
+}
+
+/* Delete Button */
+.btn-delete {
+    background-color: #d32f2f; /* Red for danger */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #b71c1c; /* Darker Red */
+}
+
+/* Image Styling */
+.incident-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px dashed #ccc;
+}
+
+.incident-images img.incident-image {
+    max-width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease;
+}
+
+.incident-images img:hover {
+    transform: scale(1.05);
+}
+
+/* Status message */
+.status-message {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #e1f5fe;
+    padding: 10px;
+    border-radius: 5px;
+}

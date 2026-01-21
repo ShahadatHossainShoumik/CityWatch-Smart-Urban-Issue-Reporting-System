@@ -22,6 +22,15 @@
     </div>
 
     <div class="content">
+        <?php
+        session_start();
+        if (isset($_SESSION['msg'])) { ?>
+            <div style="padding: 15px; margin-bottom: 20px; background-color: #f44336; color: white; border-radius: 5px;">
+                <?php echo $_SESSION['msg']; ?>
+            </div>
+            <?php unset($_SESSION['msg']); ?>
+        <?php } ?>
+
         <div class="form-card">
             <h2>Report a New Incident</h2>
             <p class="subtitle">Fill in the details below to report an issue to authorities.</p>

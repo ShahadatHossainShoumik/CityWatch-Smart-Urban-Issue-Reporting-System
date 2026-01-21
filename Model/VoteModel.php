@@ -1,54 +1,88 @@
 <?php
 require_once('db.php');
-///for fetching vote by issue id and user id
+
+//for fetching vote by issue id and user id
 function getVote($issue_id, $user_id)
 {
-
-    $query = "SELECT * FROM votes WHERE issue_id='$issue_id' AND user_id='$user_id'";
     $conn = dbConnect();
-    $data = mysqli_query($conn, $query);
+    $query = "SELECT * FROM votes WHERE issue_id=? AND user_id=?";
+    $stmt = mysqli_prepare($conn, $query);
 
-    if (mysqli_num_rows($data) > 0) {
-        return mysqli_fetch_assoc($data);
+    if($stmt){
+        mysqli_stmt_bind_param($stmt,"ii",$issue_id,$user_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
+            $vote = mysqli_fetch_assoc($result);
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+            return $vote;
+        }
+        mysqli_stmt_close($stmt);
     }
+    mysqli_close($conn);
     return false;
 }
 
 //for inserting vote
 function insertVote($issue_id, $user_id, $vote)
 {
-
-    $query = "INSERT INTO votes (issue_id, user_id, vote)
-              VALUES ('$issue_id','$user_id','$vote')";
-
     $conn = dbConnect();
-    return mysqli_query($conn, $query);
+    $query = "INSERT INTO votes (issue_id, user_id, vote)
+              VALUES (?,?,?)";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if($stmt){
+        mysqli_stmt_bind_param($stmt,"iis",$issue_id,$user_id,$vote);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        return $result;
+    }
+    mysqli_close($conn);
+    return false;
 }
 
 //for updating vote
 function updateVote($issue_id, $user_id, $vote)
 {
-
-    $query = "UPDATE votes
-              SET vote='$vote'
-              WHERE issue_id='$issue_id' AND user_id='$user_id'";
-
     $conn = dbConnect();
-    return mysqli_query($conn, $query);
+    $query = "UPDATE votes
+              SET vote=?
+              WHERE issue_id=? AND user_id=?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if($stmt){
+        mysqli_stmt_bind_param($stmt,"sii",$vote,$issue_id,$user_id);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        return $result;
+    }
+    mysqli_close($conn);
+    return false;
 }
 
 //for counting votes
 function countVotes($issue_id, $type)
 {
-
+    $conn = dbConnect();
     $query = "SELECT COUNT(*) AS total
               FROM votes
-              WHERE issue_id='$issue_id' AND vote='$type'";
+              WHERE issue_id=? AND vote=?";
 
-    $conn = dbConnect();
-    $data = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($data);
-
-    return $row['total'];
+    $stmt = mysqli_prepare($conn, $query);
+    if($stmt){
+        mysqli_stmt_bind_param($stmt,"is",$issue_id,$type);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        return $row['total'];
+    }
+    mysqli_close($conn);
+    return 0;
 }
 ?>

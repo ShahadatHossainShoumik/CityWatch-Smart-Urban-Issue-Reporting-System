@@ -71,11 +71,21 @@ if (isset($_GET['issue_id']) && isset($_GET['action'])) {
     $action   = $_GET['action']; 
 
     if ($action === 'approve') {
-        updateIssueStatus($issue_id, 'approved');
+        $status = updateIssueStatus($issue_id, 'approved');
+        if ($status) {
+            $_SESSION['msg'] = "Issue #" . $issue_id . " approved successfully";
+        } else {
+            $_SESSION['msg'] = "Failed to approve issue #" . $issue_id;
+        }
     }
 
     if ($action === 'reject') {
-        updateIssueStatus($issue_id, 'rejected');
+        $status = updateIssueStatus($issue_id, 'rejected');
+        if ($status) {
+            $_SESSION['msg'] = "Issue #" . $issue_id . " rejected successfully";
+        } else {
+            $_SESSION['msg'] = "Failed to reject issue #" . $issue_id;
+        }
     }
 
     header("Location: ../View/admin/manage_incidents.php");

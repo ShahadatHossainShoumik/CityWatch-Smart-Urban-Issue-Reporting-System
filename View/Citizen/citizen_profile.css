@@ -7,24 +7,41 @@
 
 h2 {
     margin-bottom: 20px;
-    color: #0277bd; /* CityWatch Blue */
+    color: #0277bd;
+    /* CityWatch Blue */
+}
+
+.flash {
+    padding: 12px 14px;
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    color: #2e7d32;
+    font-weight: 600;
 }
 
 /* Profile Card (Top Section) */
 .profileCard {
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 40px;
     background: #fff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     margin-bottom: 30px;
     border: 1px solid #b3e5fc;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .avatarCol {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 180px;
     flex-shrink: 0;
 }
 
@@ -33,18 +50,25 @@ h2 {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #b3e5fc; /* Light blue border */
+    border: 4px solid #b3e5fc;
     padding: 2px;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .uploadBtn {
-    display: inline-block;
-    margin-top: 10px;
+    display: block;
+    margin: 0;
+    padding: 8px 12px;
     font-size: 0.9rem;
     color: #0288d1;
     cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
+    text-align: center;
+    background: transparent;
+    border: none;
+    width: 100%;
 }
 
 .uploadBtn:hover {
@@ -55,33 +79,53 @@ h2 {
     display: none;
 }
 
+.uploadBtn input {
+    display: none;
+}
+
 .avatarPreview {
     display: none;
-    width: 100px;
-    margin-top: 10px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #b3e5fc;
+    margin-top: 15px;
 }
 
 .infoCol {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 12px;
+    min-width: 500px;
 }
 
 .infoRow {
-    margin-bottom: 12px;
-    font-size: 1rem;
-    color: #444;
-    border-bottom: 1px solid #f0f8ff;
-    padding-bottom: 5px;
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    gap: 25px;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    background: #f7fbff;
+    border: 1px solid #e3f2fd;
+    border-radius: 8px;
+    padding: 12px 15px;
+    white-space: nowrap;
 }
 
-.infoRow span {
-    font-weight: bold;
+.infoRow .label {
+    font-weight: 700;
     color: #0277bd;
-    width: 120px;
-    display: inline-block;
+    white-space: nowrap;
+}
+
+.infoRow .value {
+    color: #37474f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Edit & Password Cards */
@@ -142,7 +186,8 @@ input:focus {
 
 /* Buttons */
 button.primary {
-    background: #0288d1; /* Blue */
+    background: #0288d1;
+    /* Blue */
     color: #fff;
     padding: 12px;
     border: none;
@@ -155,12 +200,14 @@ button.primary {
 }
 
 button.primary:hover {
-    background: #01579b; /* Darker Blue */
+    background: #01579b;
+    /* Darker Blue */
 }
 
 /* Readonly fields styling */
 .readonly-field {
-    background-color: #e1f5fe; /* Very light blue background */
+    background-color: #e1f5fe;
+    /* Very light blue background */
     color: #555;
     cursor: not-allowed;
     border-color: #b3e5fc;
@@ -173,7 +220,7 @@ button.primary:hover {
         align-items: center;
         text-align: center;
     }
-    
+
     .infoRow span {
         display: block;
         width: 100%;

@@ -8,6 +8,14 @@
 </head>
 <body>
 
+    <?php
+    session_start();
+    require_once '../../Model/AdminModel.php';
+
+    // Get dashboard statistics
+    $stats = getDashboardStats();
+    ?>
+
     <div class="logout-btn-container">
         <a href="logout.php" class="logout-btn">Logout</a>
     </div>
@@ -18,23 +26,38 @@
         <div class="dashboard-analytics">
             <div class="analytics-box">
                 <h4>Total Users</h4>
-                <p></p>
+                <p><?php echo $stats['totalUsers']; ?></p>
             </div>
             <div class="analytics-box">
                 <h4>Total Incidents</h4>
-                <p></p>
+                <p><?php echo $stats['totalIncidents']; ?></p>
             </div>
             <div class="analytics-box">
                 <h4>Resolved Incidents</h4>
-                <p></p>
+                <p><?php echo $stats['resolvedIncidents']; ?></p>
             </div>
             <div class="analytics-box">
                 <h4>Fake Incidents</h4>
-                <p></p>
+                <p><?php echo $stats['fakeIncidents']; ?></p>
             </div>
             <div class="analytics-box">
                 <h4>Active Announcements</h4>
-                <p></p>
+                <p><?php echo $stats['activeAnnouncements']; ?></p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Citizens</h4>
+                <p><?php echo $stats['citizens']; ?></p>
+            </div>
+            <div class="stat-card">
+                <h4>Authorities</h4>
+                <p><?php echo $stats['authorities']; ?></p>
+            </div>
+            <div class="stat-card">
+                <h4>Admins</h4>
+                <p><?php echo $stats['admins']; ?></p>
             </div>
         </div>
 

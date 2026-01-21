@@ -11,7 +11,7 @@ function dbConnect(){
     $conn = mysqli_connect($host, $user, $pass, $db_name, $port);
 
     if(!$conn){
-        echo mysqli_error($conn);
+        die("Database connection failed: " . mysqli_connect_error());
     } else {
         return $conn;
     }

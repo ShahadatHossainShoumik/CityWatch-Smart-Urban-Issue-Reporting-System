@@ -10,6 +10,39 @@
 </head>
 <body>
 
+    <?php
+    session_start();
+    require_once '../../Model/AnnouncementModel.php';
+
+    // Check admin
+    if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $announcement = null;
+    $searchTerm = '';
+
+    // Get announcement by ID if provided
+    if(isset($_GET['id'])){
+        $id = intval($_GET['id']);
+        $announcement = getAnnouncementById($id);
+    } elseif(isset($_GET['search']) && !empty($_GET['search'])){
+        $searchTerm = $_GET['search'];
+        // Search by title
+        $allAnnouncements = getAllAnnouncements();
+        foreach($allAnnouncements as $a){
+            if(stripos($a['title'], $searchTerm) !== false){
+                $announcement = $a;
+                break;
+            }
+        }
+        if(!$announcement){
+            $noResult = "No announcement found with that title";
+        }
+    }
+    ?>
+
     <div class="sidebar">
         <h3>CityWatch</h3>
         <ul>
@@ -19,9 +52,8 @@
             <li><a href="manage_admin.php">Manage Admin</a></li>
             <li><a href="manage_incidents.php">Manage Incidents</a></li>
             <li><a href="manage_announcement.php">Manage Announcements</a></li>
-            <li><a href="update_announcement.php" class="active">Update Announcements</a></li>
             <li><a href="fake_reports.php">Fake Reports</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
@@ -29,28 +61,36 @@
         <h2>Update Announcement</h2>
         <p class="subtitle">Edit existing system announcements.</p>
 
-        <form action="#" class="search-form">
-            <input type="text" name="search" placeholder="Search by title..." required>
+        <form action="update_announcement.php" method="GET" class="search-form" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="Search by title..." value="<?php echo htmlspecialchars($searchTerm); ?>" required>
             <button type="submit">Search</button>
         </form>
 
-        <form action="#" class="update-announcement-form">
-            <input type="hidden" name="update_announcement_id" value="1">
+        <?php if(isset($noResult)): ?>
+            <div style="padding: 15px; margin-bottom: 20px; background-color: #ff9800; color: white; border-radius: 5px;">
+                <?php echo $noResult; ?>
+            </div>
+        <?php endif; ?>
 
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" value="" required>
+        <?php if($announcement): ?>
+            <form action="../../Controller/AdminController.php" method="POST" class="update-announcement-form" style="max-width: 600px; margin: 0 auto;">
+                <input type="hidden" name="action" value="edit_announcement">
+                <input type="hidden" name="id" value="<?php echo $announcement['id']; ?>">
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="5" required></textarea>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($announcement['title']); ?>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
-            <label for="status">Status:</label>
-            <select id="status" name="status">
-                <option value="active" selected>Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; font-family: Arial, sans-serif;"><?php echo htmlspecialchars($announcement['message']); ?></textarea>
 
-            <button type="submit">Update Announcement</button>
-        </form>
+                <button type="submit" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px;">Update Announcement</button>
+                <a href="manage_announcement.php" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #757575; color: white; text-decoration: none; border-radius: 3px;">Cancel</a>
+            </form>
+        <?php else: ?>
+            <div style="padding: 20px; text-align: center; background-color: #f5f5f5; border-radius: 5px;">
+                <p>Search for an announcement to update its details</p>
+            </div>
+        <?php endif; ?>
     </div>
 
     <footer>

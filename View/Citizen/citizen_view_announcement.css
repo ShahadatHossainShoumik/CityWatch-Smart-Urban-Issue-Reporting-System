@@ -52,6 +52,21 @@ h2 {
     padding-top: 10px;
 }
 
+/* No Announcements Message */
+.no-announcements {
+    background: #e3f2fd;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    color: #0277bd;
+    font-size: 1.1rem;
+    margin: 20px 0;
+}
+
+.no-announcements p {
+    margin: 0;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .announcement-card {

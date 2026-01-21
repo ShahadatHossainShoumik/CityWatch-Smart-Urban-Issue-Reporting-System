@@ -33,100 +33,77 @@ $issues = getAllIssuesForAdmin();
             <li><a href="manage_incidents.php" class="active">Manage Incidents</a></li>
             <li><a href="manage_announcement.php">Manage Announcements</a></li>
             <li><a href="fake_reports.php">Fake Reports</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
     <div class="content">
-        <h2>Manage Issues</h2>
-
-        <?php if ($issues && mysqli_num_rows($issues) > 0) { ?>
-            <?php while ($row = mysqli_fetch_assoc($issues)) { ?>
-
-                <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-                    <h3>
-                        <?php echo $row['title']; ?>
-                    </h3>
-                    <p><b>Posted by:</b>
-                        <?php echo $row['name']; ?>
-                    </p>
-                    <p><b>Location:</b>
-                        <?php echo $row['location']; ?>
-                    </p>
-                    <p>
-                        <?php echo $row['description']; ?>
-                    </p>
-                    <p><b>Status:</b>
-                        <?php echo $row['status']; ?>
-                    </p>
-
-                    <?php if (!empty($row['image'])) { ?>
-                        <img src="../../Images/<?php echo $row['image']; ?>" width="200">
-                    <?php } ?>
-
-                    <br><br>
-
-                    <?php if ($row['status'] === 'pending') { ?>
-                        <a href="../../Controller/IssueController.php?issue_id=<?php echo $row['id']; ?>&action=approve">
-                            Approve
-                        </a>
-                        |
-                        <a href="../../Controller/IssueController.php?issue_id=<?php echo $row['id']; ?>&action=reject">
-                            Reject
-                        </a>
-                    <?php } ?>
-                </div>
-
-            <?php } ?>
-        <?php } else { ?>
-            <p>No issues found</p>
+        <?php if (isset($_SESSION['msg'])) { ?>
+            <div style="padding: 15px; margin-bottom: 20px; background-color: #4CAF50; color: white; border-radius: 5px;">
+                <?php echo $_SESSION['msg']; ?>
+            </div>
+            <?php unset($_SESSION['msg']); ?>
         <?php } ?>
 
+        <h2>Manage Incidents</h2>
 
-        <div class="incident-feed">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #f0f0f0;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Title</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Posted By</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Location</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Status</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($issues && mysqli_num_rows($issues) > 0) { ?>
+                    <?php while ($row = mysqli_fetch_assoc($issues)) { ?>
+                        <tr style="border: 1px solid #ddd;">
+                            <td style="padding: 12px; border: 1px solid #ddd;">
+                                <strong><?php echo htmlspecialchars($row['title']); ?></strong><br>
+                                <small><?php echo htmlspecialchars(substr($row['description'], 0, 50)) . '...'; ?></small>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #ddd;">
+                                <?php echo htmlspecialchars($row['name']); ?>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #ddd;">
+                                <?php echo htmlspecialchars($row['location']); ?>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #ddd;">
+                                <form action="../../Controller/AdminController.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="action" value="update_incident_status">
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                    <select name="status" onchange="this.form.submit()" style="padding: 5px; border-radius: 3px;">
+                                        <option value="pending" <?php echo ($row['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
+                                        <option value="reviewed" <?php echo ($row['status'] == 'reviewed') ? 'selected' : ''; ?>>Reviewed</option>
+                                        <option value="resolved" <?php echo ($row['status'] == 'resolved') ? 'selected' : ''; ?>>Resolved</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #ddd;">
+                                <form action="../../Controller/AdminController.php" method="POST" style="display:inline;" onsubmit="return confirm('Delete this incident?');">
+                                    <input type="hidden" name="action" value="delete_incident">
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                    <button type="submit" class="btn-delete" style="padding: 8px 12px; background-color: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">No incidents found</td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
 
-            <div class="incident-card">
-                <h3>Damaged Road</h3>
-                <p><strong>Posted by:</strong></p>
-                <p><strong>Location:</strong>Kuril</p>
-                <p></p>
-
-                <p><strong>Review Status:</strong> <span class="status-pending"></span></p>
-
-                <div class="incident-images">
-                    <img src="../images/image1.jpg" class="incident-image" alt="Incident Image">
-                </div>
-
-                <button class="btn-delete" onclick="confirmDelete()">Delete Incident</button>
-            </div>
-
-            <div class="incident-card">
-                <h3>Broken Streetlight</h3>
-                <p><strong>Posted by:</strong></p>
-                <p><strong>Location:</strong></p>
-                <p></p>
-
-                <p><strong>Review Status:</strong> <span class="status-reviewed"></span></p>
-
-                <div class="incident-images">
-                    <img src="../images/image2.jpg" class="incident-image" alt="Incident Image">
-                </div>
-
-                <button class="btn-delete" onclick="confirmDelete()">Delete Incident</button>
-            </div>
-
-        </div>
     </div>
 
     <footer>
         <p>&copy; 2026 CityWatch. All Rights Reserved.</p>
     </footer>
-
-    <script>
-        function confirmDelete() {
-            // complete it
-        }
-    </script>
 
 </body>
 

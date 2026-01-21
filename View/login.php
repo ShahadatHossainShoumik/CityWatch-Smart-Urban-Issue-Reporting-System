@@ -9,6 +9,29 @@
 </head>
 <body>
 
+    <?php 
+    session_start();
+    
+    // Check if user has saved cookies for auto-login
+    if(isset($_COOKIE['citywatch_remember']) && $_COOKIE['citywatch_remember'] === '1'){
+        $_SESSION['id']   = $_COOKIE['citywatch_user_id'];
+        $_SESSION['role'] = $_COOKIE['citywatch_user_role'];
+        $_SESSION['name'] = $_COOKIE['citywatch_user_name'];
+        $_SESSION['email'] = $_COOKIE['citywatch_user_email'];
+        
+        // Redirect to appropriate dashboard
+        $role = $_COOKIE['citywatch_user_role'];
+        if($role === 'citizen'){
+            header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Citizen/citizen_dashboard.php");
+        } elseif($role === 'authority'){
+            header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Authority/authority_dashboard.php");
+        } elseif($role === 'admin'){
+            header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Admin/admin_dashboard.php");
+        }
+        exit();
+    }
+    ?>
+
     <header>
         <div class="logo">
             <h1>CityWatch</h1>
@@ -26,7 +49,18 @@
     <main id="login-container">
         <h2>Login to CityWatch</h2>
         
-        <form action="../Controller/AuthController.php" method="POST" class="login-form">
+        <?php session_start(); if(isset($_SESSION['msg'])){ 
+            $isError = strpos($_SESSION['msg'], 'Invalid') !== false || strpos($_SESSION['msg'], 'not found') !== false;
+            $bgColor = $isError ? '#ffcdd2' : '#c8e6c9';
+            $borderColor = $isError ? '#f44336' : '#4CAF50';
+            $textColor = $isError ? '#c62828' : '#2e7d32';
+        ?>
+            <div style="padding: 12px; margin-bottom: 15px; background: <?php echo $bgColor; ?>; border: 1px solid <?php echo $borderColor; ?>; border-radius: 5px; color: <?php echo $textColor; ?>;">
+                <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            </div>
+        <?php } ?>
+        
+        <form action="/Projects/CityWatch-Smart-Urban-Issue-Reporting-System/Controller/AuthController.php" method="POST" class="login-form">
             
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required placeholder="Enter your email">
@@ -40,6 +74,11 @@
                 <option value="authority">Authority</option>
                 <option value="admin">Admin</option>
             </select>
+
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <input type="checkbox" id="remember" name="remember" value="1" style="margin-right: 8px;">
+                <label for="remember" style="margin: 0;">Remember me for 30 days</label>
+            </div>
 
             <button type="submit" name="login">Login</button>
 

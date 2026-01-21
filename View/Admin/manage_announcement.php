@@ -9,6 +9,27 @@
 </head>
 <body>
 
+    <?php
+    session_start();
+    require_once '../../Model/AnnouncementModel.php';
+
+    // Check admin
+    if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Get all announcements
+    $announcements = getAllAnnouncements();
+    $searchTerm = '';
+    if(isset($_GET['search']) && !empty($_GET['search'])){
+        $searchTerm = $_GET['search'];
+        $announcements = array_filter($announcements, function($announcement) use ($searchTerm){
+            return stripos($announcement['title'], $searchTerm) !== false || stripos($announcement['message'], $searchTerm) !== false;
+        });
+    }
+    ?>
+
     <div class="sidebar">
         <h3>CityWatch</h3>
         <ul>
@@ -18,57 +39,67 @@
             <li><a href="manage_admin.php">Manage Admin</a></li>
             <li><a href="manage_incidents.php">Manage Incidents</a></li>
             <li><a href="manage_announcement.php" class="active">Manage Announcements</a></li>
-            <li><a href="update_announcement.php">Update Announcements</a></li>
             <li><a href="fake_reports.php">Fake Reports</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
     <div class="content">
         <h2>Manage Announcements</h2>
-        <p class="subtitle">View and search system-wide announcements.</p>
+        <p class="subtitle">View and manage system-wide announcements.</p>
+
+        <?php if(isset($_SESSION['msg'])): ?>
+            <div class="alert alert-success" style="padding: 15px; margin-bottom: 20px; background-color: #4CAF50; color: white; border-radius: 5px;">
+                <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            </div>
+        <?php endif; ?>
 
         <div class="top-bar">
-            <form action="#" class="search-form">
-                <input type="text" name="search" placeholder="Search by title">
+            <form action="manage_announcement.php" class="search-form" method="GET">
+                <input type="text" name="search" placeholder="Search by title..." value="<?php echo htmlspecialchars($searchTerm); ?>">
                 <button type="submit">Search</button>
             </form>
         </div>
 
-        <div class="announcement-card">
-            <h3>Problem 1</h3>
-            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
-            <p><strong>Created at:</strong></p>
-            <p class="desc"></p>
-            
-            <div class="card-actions">
-                <button class="btn-edit">Edit</button>
-                <button class="btn-delete">Delete</button>
+        <?php if(count($announcements) > 0): ?>
+            <?php foreach($announcements as $announcement): ?>
+                <div class="announcement-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h3><?php echo htmlspecialchars($announcement['title']); ?></h3>
+                    <p><strong>Created by:</strong> <?php echo htmlspecialchars($announcement['author_id']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo date('M d, Y - H:i', strtotime($announcement['created_at'] ?? 'now')); ?></p>
+                    <p class="desc"><?php echo htmlspecialchars(substr($announcement['message'], 0, 100)) . '...'; ?></p>
+                    
+                    <div class="card-actions" style="margin-top: 15px;">
+                        <button class="btn btn-edit" onclick="editAnnouncement(<?php echo $announcement['id']; ?>, '<?php echo htmlspecialchars($announcement['title']); ?>', '<?php echo htmlspecialchars($announcement['message']); ?>')">Edit</button>
+                        <form action="../../Controller/AdminController.php" method="POST" style="display:inline;" onsubmit="return confirm('Delete this announcement?');">
+                            <input type="hidden" name="action" value="delete_announcement">
+                            <input type="hidden" name="id" value="<?php echo $announcement['id']; ?>">
+                            <button type="submit" class="btn btn-delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div style="padding: 20px; text-align: center; background-color: #f5f5f5; border-radius: 5px;">
+                <p>No announcements found</p>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <div class="announcement-card">
-            <h3>Problem 2</h3>
-            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
-            <p><strong>Created at:</strong></p>
-            <p class="desc"></p>
-            
-            <div class="card-actions">
-                <button class="btn-edit">Edit</button>
-                <button class="btn-delete">Delete</button>
-            </div>
-        </div>
+        <div id="edit-announcement-form" class="form-container" style="display:none; margin-top: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <h3>Edit Announcement</h3>
+            <form action="../../Controller/AdminController.php" method="POST">
+                <input type="hidden" name="action" value="edit_announcement">
+                <input type="hidden" name="id" id="edit-id">
+                
+                <label for="edit-title">Title:</label>
+                <input type="text" id="edit-title" name="title" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
 
-        <div class="announcement-card">
-            <h3>Problem 3</h3>
-            <p><strong>Status:</strong> <span class="status-inactive">Inactive</span></p>
-            <p><strong>Created at:</strong></p>
-            <p class="desc"></p>
-            
-            <div class="card-actions">
-                <button class="btn-edit">Edit</button>
-                <button class="btn-delete">Delete</button>
-            </div>
+                <label for="edit-message">Message:</label>
+                <textarea id="edit-message" name="message" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; font-family: Arial, sans-serif;"></textarea>
+
+                <button type="submit" class="btn-submit" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer; margin-right: 10px;">Update Announcement</button>
+                <button type="button" class="btn-cancel" onclick="closeEditForm()" style="padding: 10px 20px; background-color: #757575; color: white; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
+            </form>
         </div>
 
     </div>
@@ -76,6 +107,19 @@
     <footer>
         <p>&copy; 2026 CityWatch. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function editAnnouncement(id, title, message){
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-title').value = title;
+            document.getElementById('edit-message').value = message;
+            document.getElementById('edit-announcement-form').style.display = 'block';
+        }
+
+        function closeEditForm(){
+            document.getElementById('edit-announcement-form').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>

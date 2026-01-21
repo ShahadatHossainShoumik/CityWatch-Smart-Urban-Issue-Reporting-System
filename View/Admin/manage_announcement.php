@@ -78,7 +78,7 @@
                 <button type="button" class="btn-cancel" onclick="closeAddForm()" style="padding: 10px 20px; background-color: #757575; color: white; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
             </form>
         </div>
-        // Display announcements
+        
         <?php if (count($announcements) > 0): ?>
             <?php foreach ($announcements as $announcement): ?>
                 <div class="announcement-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
@@ -102,7 +102,7 @@
                 <p>No announcements found</p>
             </div>
         <?php endif; ?>
-        // Edit announcement form
+        
         <div id="edit-announcement-form" class="form-container" style="display:none; margin-top: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px; max-width: 600px; margin-left: auto; margin-right: auto;">
             <h3>Edit Announcement</h3>
             <form action="../../Controller/AdminController.php" method="POST">

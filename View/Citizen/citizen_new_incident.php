@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    //New Incident sidebar
+   
     <div class="sidebar">
         <h3>CityWatch</h3>
         <ul>
@@ -22,7 +22,7 @@
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
-    //New Incident content area
+    
     <div class="content">
         <?php
         session_start();

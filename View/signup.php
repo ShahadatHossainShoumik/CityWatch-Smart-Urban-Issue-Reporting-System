@@ -28,7 +28,7 @@
             <div class="container">
                 <h2>Create Account</h2>
 
-                <form class="signup-form" action="#" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <form class="signup-form" action="../Controller/AuthController.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                     
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your full name" required onkeyup="validateName()">
@@ -56,7 +56,7 @@
                     <label for="profile_image">Profile Image</label>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">
 
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" name="signup">Sign Up</button>
 
                     <p>Already have an account? <a href="login.php">Login here</a></p>
                 </form>

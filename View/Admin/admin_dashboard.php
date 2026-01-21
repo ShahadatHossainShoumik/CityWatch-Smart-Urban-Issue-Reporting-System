@@ -9,7 +9,7 @@
 <body>
 
     <div class="logout-btn-container">
-        <a href="../login.php" class="logout-btn">Logout</a>
+        <a href="logout.php" class="logout-btn">Logout</a>
     </div>
 
     <div class="content">

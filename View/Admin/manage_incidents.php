@@ -1,5 +1,18 @@
+<?php
+session_start();
+require_once('../../Model/IssueModel.php');
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
+
+$issues = getAllIssuesForAdmin();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +20,7 @@
     <link rel="stylesheet" href="admin_dashboard.css">
     <link rel="stylesheet" href="manage_incidents.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -24,26 +38,56 @@
     </div>
 
     <div class="content">
-        <h2>Manage Incidents</h2>
-        <p class="subtitle">Review, monitor, and manage reported incidents.</p>
+        <h2>Manage Issues</h2>
 
-        <div class="top-bar">
-            <form action="#" class="search-form">
-                <input type="text" name="search" placeholder="Search by location or title...">
-                <select name="filter">
-                    <option value="latest">Latest</option>
-                    <option value="upvotes">Most Upvoted</option>
-                    <option value="downvotes">Most Downvoted</option>
-                </select>
-                <button type="submit">Apply</button>
-            </form>
-        </div>
+        <?php if ($issues && mysqli_num_rows($issues) > 0) { ?>
+            <?php while ($row = mysqli_fetch_assoc($issues)) { ?>
+
+                <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                    <h3>
+                        <?php echo $row['title']; ?>
+                    </h3>
+                    <p><b>Posted by:</b>
+                        <?php echo $row['name']; ?>
+                    </p>
+                    <p><b>Location:</b>
+                        <?php echo $row['location']; ?>
+                    </p>
+                    <p>
+                        <?php echo $row['description']; ?>
+                    </p>
+                    <p><b>Status:</b>
+                        <?php echo $row['status']; ?>
+                    </p>
+
+                    <?php if (!empty($row['image'])) { ?>
+                        <img src="../../Images/<?php echo $row['image']; ?>" width="200">
+                    <?php } ?>
+
+                    <br><br>
+
+                    <?php if ($row['status'] === 'pending') { ?>
+                        <a href="../../Controller/IssueController.php?issue_id=<?php echo $row['id']; ?>&action=approve">
+                            Approve
+                        </a>
+                        |
+                        <a href="../../Controller/IssueController.php?issue_id=<?php echo $row['id']; ?>&action=reject">
+                            Reject
+                        </a>
+                    <?php } ?>
+                </div>
+
+            <?php } ?>
+        <?php } else { ?>
+            <p>No issues found</p>
+        <?php } ?>
+
 
         <div class="incident-feed">
-            
+
             <div class="incident-card">
                 <h3>Damaged Road</h3>
-                <p><strong>Posted by:</strong></p> 
+                <p><strong>Posted by:</strong></p>
                 <p><strong>Location:</strong>Kuril</p>
                 <p></p>
 
@@ -58,7 +102,7 @@
 
             <div class="incident-card">
                 <h3>Broken Streetlight</h3>
-                <p><strong>Posted by:</strong></p> 
+                <p><strong>Posted by:</strong></p>
                 <p><strong>Location:</strong></p>
                 <p></p>
 
@@ -85,4 +129,5 @@
     </script>
 
 </body>
+
 </html>

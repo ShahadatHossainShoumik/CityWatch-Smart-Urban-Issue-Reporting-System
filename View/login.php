@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,7 @@
     <main id="login-container">
         <h2>Login to CityWatch</h2>
         
-        <form action="login.php" method="POST" class="login-form">
+        <form action="../Controller/AuthController.php" method="POST" class="login-form">
             
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required placeholder="Enter your email">
@@ -40,7 +41,7 @@
                 <option value="admin">Admin</option>
             </select>
 
-            <button type="submit">Login</button>
+            <button type="submit" name="login">Login</button>
 
             <p> <a href="signup.php">Create an account</a></p>
         </form>

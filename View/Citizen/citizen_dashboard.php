@@ -1,5 +1,20 @@
+<?php
+session_start();
+
+require_once('../../Model/IssueModel.php');
+require_once('../../Model/VoteModel.php');
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen') {
+    header("Location: ../login.php");
+    exit();
+}
+
+$issues = getAllIssues();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +22,7 @@
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="citizen_dashboard.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -17,12 +33,12 @@
             <li><a href="citizen_my_uploads.php">My Uploads</a></li>
             <li><a href="citizen_view_announcement.php">Announcement</a></li>
             <li><a href="citizen_profile.php">Profile</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
     <div class="content">
-        
+
         <div class="top-bar">
             <form class="search-form">
                 <input type="text" name="search" placeholder="Search by location...">
@@ -37,42 +53,48 @@
 
         <h2>Incidents Feed</h2>
 
-        <div class="incident-card" id="incident_1">
-            <h3>Damaged Road</h3>
-            <p><strong>Posted by:</strong>Shahadat Hossain</p> 
-            <p><strong>Location:</strong>Kuril</p>
-            <p>Road Damaged</p>
-        
-            <div class="incident-images">
-                <img src="../Images/image1.jpg" class="incident-image" alt="Damaged Road">
-            </div>
-        
-            <div class="incident-actions">
-                <button class="btn upvote">Upvote (<span>12</span>)</button>
-                <button class="btn downvote">Downvote (<span>2</span>)</button>
-            </div>
-        </div>
+        <?php
+        if ($issues && mysqli_num_rows($issues) > 0) {
+            while ($row = mysqli_fetch_assoc($issues)) {
+                ?>
+                <div class="incident-card">
 
-        <div class="incident-card" id="incident_2">
-            <h3>Broken Streetlight</h3>
-            <p><strong>Posted by:</strong>Mehedi Hasan Shuvo </p> 
-            <p><strong>Location:</strong> Gulshan Park</p>
-            <p>The streetlight is broken</p>
-        
-            <div class="incident-images">
-                <img src="../../images/image2.jpg" class="incident-image" alt="Broken Streetlight">
-            </div>
-        
-            <div class="incident-actions">
-                <button class="btn upvote">Upvote (<span>5</span>)</button>
-                <button class="btn downvote">Downvote (<span>0</span>)</button>
-            </div>
-        </div>
+                    <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+
+                    <p><b>Posted by:</b> <?php echo htmlspecialchars($row['name']); ?></p>
+                    <p><b>Location:</b> <?php echo htmlspecialchars($row['location']); ?></p>
+                    <p><?php echo htmlspecialchars($row['description']); ?></p>
+
+                    <?php if (!empty($row['image'])) { ?>
+                        <img src="../../Images/<?php echo htmlspecialchars($row['image']); ?>" width="200">
+                    <?php } ?>
+
+                    <br><br>
+
+                    <a href="../../Controller/VoteController.php?issue_id=<?php echo $row['id']; ?>&vote=up">
+                        Upvote (<?php echo countVotes($row['id'], 'up'); ?>)
+                    </a>
+
+                    &nbsp;&nbsp;
+
+                    <a href="../../Controller/VoteController.php?issue_id=<?php echo $row['id']; ?>&vote=down">
+                        Downvote (<?php echo countVotes($row['id'], 'down'); ?>)
+                    </a>
+
+                </div>
+                <?php
+            }
+        } else {
+            echo "<p>No issues found</p>";
+        }
+        ?>
 
     </div>
-    
+
     <footer>
         <p>&copy; 2026 CityWatch. All Rights Reserved.</p>
     </footer>
+
 </body>
+
 </html>

@@ -17,7 +17,7 @@
             <li><a href="citizen_my_uploads.php">My Uploads</a></li>
             <li><a href="citizen_view_announcement.php">Announcement</a></li>
             <li><a href="citizen_profile.php">Profile</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
@@ -26,7 +26,7 @@
             <h2>Report a New Incident</h2>
             <p class="subtitle">Fill in the details below to report an issue to authorities.</p>
 
-            <form class="incident-form" action="#" method="POST" enctype="multipart/form-data">
+            <form class="incident-form" action="../../Controller/IssueController.php" method="POST" enctype="multipart/form-data">
                 
                 <div class="form-group">
                     <label for="title">Incident Title</label>
@@ -44,13 +44,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="images">Upload Photos</label>
-                    <input type="file" id="images" name="images[]" accept="image/*" multiple onchange="previewImages(event)">
+                    <label for="issue_image">Upload Photos</label>
+                    <input type="file" id="issue_image" name="issue_image" accept="image/*" onchange="previewImages(event)">
                     
                     <div id="previewArea"></div>
                 </div>
 
-                <button type="submit" class="btn-submit">Submit Incident</button>
+                <button type="submit" class="submit_issue">Submit Incident</button>
             </form>
         </div>
     </div>

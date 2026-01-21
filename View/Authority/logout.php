@@ -1,5 +1,11 @@
 <?php
 session_start();
-session_destroy();  // Destroy the session to log out
-header("Location: ../login.php");  // Redirect to login page
+
+//Destroy all session data
+session_unset();
+session_destroy();
+
+//Redirect to public home page 
+header("Location: ../home.php");
 exit();
+?>

@@ -114,16 +114,16 @@ $issues = getAllIssuesWithFilter($search, $filter);
                     <?php } ?>
 
                     <div class="vote-section" id="vote-<?php echo $row['id']; ?>"
-                        style="margin-top: 15px; display: flex; gap: 20px; align-items: center;">
+                        style="margin-top: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                         <button class="vote-btn upvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="up"
-                            style="padding: 8px 12px; border: 1px solid #4CAF50; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            style="padding: 10px 16px; border: 2px solid #1f5521; background: #4caf50; color: white; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-size: 0.95rem;">
                             Up-Vote <span class="upvote-count"><?php echo $issue_upvotes; ?></span>
                         </button>
                         <button class="vote-btn downvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="down"
-                            style="padding: 8px 12px; border: 1px solid #f44336; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            style="padding: 10px 16px; border: 2px solid #f44336; background: #f44336; color: white; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-size: 0.95rem;">
                             Down-Vote <span class="downvote-count"><?php echo $issue_downvotes; ?></span>
                         </button>
-                        <span id="vote-message-<?php echo $row['id']; ?>" style="font-size: 0.9rem; color: #666;"></span>
+                        <span id="vote-message-<?php echo $row['id']; ?>" style="font-size: 0.9rem; color: #d32f2f; font-weight: 500;"></span>
                     </div>
 
                 </div>
@@ -166,8 +166,8 @@ $issues = getAllIssuesWithFilter($search, $filter);
                             const upBtn = document.querySelector(`#vote-${issueId} .upvote-btn`);
                             const downBtn = document.querySelector(`#vote-${issueId} .downvote-btn`);
 
-                            upBtn.style.background = data.user_vote === 'up' ? '#c8e6c9' : '#f0f0f0';
-                            downBtn.style.background = data.user_vote === 'down' ? '#ffcdd2' : '#f0f0f0';
+                            upBtn.style.background = data.user_vote === 'up' ? '#2e7d32' : '#4caf50';
+                            downBtn.style.background = data.user_vote === 'down' ? '#c62828' : '#f44336';
 
                             // Show feedback message
                             document.querySelector(`#vote-message-${issueId}`).textContent = data.message;

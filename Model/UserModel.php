@@ -4,16 +4,18 @@ require_once('db.php');
 // Inserts a new user into the database
 function insertUser($name, $dob, $mobile, $email, $nid, $password, $profile_image)
 {
-
     $role = "citizen";
     $conn = dbConnect();
 
-    $query = "INSERT INTO users
-              (name,dob,mobile,email,nid,password,profile_image,role)
-              VALUES
-              (?,?,?,?,?,?,?,?)";
+    if (!$conn) {
+        return false;
+    }
 
-    // Prepare and bind
+    $query = "INSERT INTO users
+              (name, dob, mobile, email, nid, password, profile_image, role)
+              VALUES
+              (?, ?, ?, ?, ?, ?, ?, ?)";
+
     $stmt = mysqli_prepare($conn, $query);
     if ($stmt) {
         mysqli_stmt_bind_param($stmt, "ssssssss", $name, $dob, $mobile, $email, $nid, $password, $profile_image, $role);
@@ -22,6 +24,7 @@ function insertUser($name, $dob, $mobile, $email, $nid, $password, $profile_imag
         mysqli_close($conn);
         return $result;
     }
+    
     mysqli_close($conn);
     return false;
 }

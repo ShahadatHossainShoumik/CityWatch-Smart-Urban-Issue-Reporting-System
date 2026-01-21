@@ -44,13 +44,22 @@ if (isset($_POST['signup'])) {
 
     if (getUserByEmail($email)) {
         $_SESSION['msg'] = "Email already exists";
+        $_SESSION['msg_type'] = "error";
         header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/signup.php");
         exit();
     } else {
-        insertUser($name, $dob, $mobile, $email, $nid, $password, $imagePath);
-        $_SESSION['msg'] = "Registration successful";
-        header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/login.php");
-        exit();
+        $result = insertUser($name, $dob, $mobile, $email, $nid, $password, $imagePath);
+        if ($result) {
+            $_SESSION['msg'] = "Registration successful! Please login with your credentials.";
+            $_SESSION['msg_type'] = "success";
+            header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/login.php");
+            exit();
+        } else {
+            $_SESSION['msg'] = "Registration failed. Please try again.";
+            $_SESSION['msg_type'] = "error";
+            header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/signup.php");
+            exit();
+        }
     }
 }
 

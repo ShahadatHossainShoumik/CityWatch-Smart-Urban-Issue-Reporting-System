@@ -95,9 +95,39 @@ function validateAge() {
 
 // Combine all validations before submitting the form
 function validateForm() {
-    if (validateName() && validateMobile() && validateNid() && validateAge()) {
-        return true;
-    } else {
-        return false;
+    var isValid = true;
+    var errorMessages = [];
+
+    if (!validateName()) {
+        errorMessages.push("Please enter a valid name (letters and spaces only).");
+        isValid = false;
     }
+    
+    if (!validateMobile()) {
+        errorMessages.push("Please enter a valid 11-digit mobile number.");
+        isValid = false;
+    }
+    
+    if (!validateNid()) {
+        errorMessages.push("Please enter a valid 10-digit NID.");
+        isValid = false;
+    }
+    
+    if (!validateAge()) {
+        errorMessages.push("You must be at least 18 years old.");
+        isValid = false;
+    }
+
+    // Check password separately since it shows strength levels
+    var password = document.getElementById("password").value;
+    if (password.length < 8) {
+        errorMessages.push("Password must be at least 8 characters long.");
+        isValid = false;
+    }
+
+    if (!isValid && errorMessages.length > 0) {
+        alert("Please fix the following errors:\n\n" + errorMessages.join("\n"));
+    }
+
+    return isValid;
 }

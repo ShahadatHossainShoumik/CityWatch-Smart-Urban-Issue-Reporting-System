@@ -32,7 +32,7 @@ $announcements = getAllAnnouncements();
             <li><a href="citizen_my_uploads.php">My Uploads</a></li>
             <li><a href="citizen_view_announcement.php" class="active">Announcement</a></li>
             <li><a href="citizen_profile.php">Profile</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 

@@ -30,8 +30,37 @@
             <div class="container">
                 <h2>Create Account</h2>
 
+                <?php
+                session_start();
+                if (isset($_SESSION['msg'])) {
+                    $msgType = $_SESSION['msg_type'] ?? 'error';
+                    $bgColor = $msgType === 'error' ? '#ffcdd2' : '#c8e6c9';
+                    $borderColor = $msgType === 'error' ? '#f44336' : '#4CAF50';
+                    $textColor = $msgType === 'error' ? '#c62828' : '#2e7d32';
+                    ?>
+                    <div id="notification-message"
+                        style="padding: 15px; margin-bottom: 20px; background: <?php echo $bgColor; ?>; border: 2px solid <?php echo $borderColor; ?>; border-radius: 8px; color: <?php echo $textColor; ?>; font-weight: 500; text-align: center; transition: opacity 0.5s ease-out;">
+                        <?php echo $_SESSION['msg'];
+                        unset($_SESSION['msg']);
+                        unset($_SESSION['msg_type']); ?>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            var notification = document.getElementById('notification-message');
+                            if (notification) {
+                                notification.style.opacity = '0';
+                                setTimeout(function() {
+                                    notification.style.display = 'none';
+                                }, 500);
+                            }
+                        }, 5000);
+                    </script>
+                <?php } ?>
+
                 <form class="signup-form" action="../Controller/AuthController.php" method="POST"
                     enctype="multipart/form-data" onsubmit="return validateForm()">
+
+                    <input type="hidden" name="signup" value="1">
 
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your full name" required
@@ -63,6 +92,7 @@
                     <label for="profile_image">Profile Image</label>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">
 
+                    <button type="submit" name="signup" class="signup-btn">Sign Up</button>
 
                     <p>Already have an account? <a href="login.php">Login here</a></p>
                 </form>

@@ -17,7 +17,7 @@
 
     // Verify admin access
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-        header("Location: ../login.php");
+        header("Location: ../../View/login.php");
         exit();
     }
 

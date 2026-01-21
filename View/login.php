@@ -47,11 +47,11 @@
             // Redirect to appropriate dashboard
             $role = $user['role'];
             if ($role === 'citizen') {
-                header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Citizen/citizen_dashboard.php");
+                header("Location: ./Citizen/citizen_dashboard.php");
             } elseif ($role === 'authority') {
-                header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Authority/authority_dashboard.php");
+                header("Location: ./Authority/authority_dashboard.php");
             } elseif ($role === 'admin') {
-                header("Location: /Projects/CityWatch-Smart-Urban-Issue-Reporting-System/View/Admin/admin_dashboard.php");
+                header("Location: ./Admin/admin_dashboard.php");
             }
             exit();
         } else {
@@ -79,16 +79,28 @@
         <h2>Login to CityWatch</h2>
 
         <?php if (isset($_SESSION['msg'])) {
-            $isError = strpos($_SESSION['msg'], 'Invalid') !== false || strpos($_SESSION['msg'], 'not found') !== false;
-            $bgColor = $isError ? '#ffcdd2' : '#c8e6c9';
-            $borderColor = $isError ? '#f44336' : '#4CAF50';
-            $textColor = $isError ? '#c62828' : '#2e7d32';
+            $msgType = $_SESSION['msg_type'] ?? 'info';
+            $bgColor = $msgType === 'error' ? '#ffcdd2' : '#c8e6c9';
+            $borderColor = $msgType === 'error' ? '#f44336' : '#4CAF50';
+            $textColor = $msgType === 'error' ? '#c62828' : '#2e7d32';
             ?>
-            <div
-                style="padding: 12px; margin-bottom: 15px; background: <?php echo $bgColor; ?>; border: 1px solid <?php echo $borderColor; ?>; border-radius: 5px; color: <?php echo $textColor; ?>;">
+            <div id="notification-message"
+                style="padding: 15px; margin-bottom: 20px; background: <?php echo $bgColor; ?>; border: 2px solid <?php echo $borderColor; ?>; border-radius: 8px; color: <?php echo $textColor; ?>; font-weight: 500; text-align: center; transition: opacity 0.5s ease-out;">
                 <?php echo $_SESSION['msg'];
-                unset($_SESSION['msg']); ?>
+                unset($_SESSION['msg']);
+                unset($_SESSION['msg_type']); ?>
             </div>
+            <script>
+                setTimeout(function() {
+                    var notification = document.getElementById('notification-message');
+                    if (notification) {
+                        notification.style.opacity = '0';
+                        setTimeout(function() {
+                            notification.style.display = 'none';
+                        }, 500);
+                    }
+                }, 5000);
+            </script>
         <?php } ?>
 
         <form action="/Projects/CityWatch-Smart-Urban-Issue-Reporting-System/Controller/AuthController.php"

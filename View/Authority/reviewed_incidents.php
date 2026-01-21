@@ -21,7 +21,7 @@
             <li><a href="new_announcement.php">New Announcement</a></li>
             <li><a href="all_announcements.php">All Announcements</a></li>
             <li><a href="authority_profile.php">Profile</a></li>
-            <li><a href="../login.php">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 

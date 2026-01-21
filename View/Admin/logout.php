@@ -13,6 +13,6 @@ setcookie('citywatch_user_name', '', time() - 3600, '/', '', false, true);
 setcookie('citywatch_remember', '', time() - 3600, '/', '', false, true);
 
 // Redirect to public home page 
-header("Location: ../home.php");
+header("Location: ../login.php");
 exit();
 ?>

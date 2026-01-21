@@ -96,7 +96,8 @@ main {
 }
 
 /* Button Styling */
-.signup-form button {
+.signup-form button,
+.signup-btn {
     background-color: #0288d1; /* CityWatch Blue */
     color: white;
     padding: 12px;
@@ -105,9 +106,13 @@ main {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.signup-form button:hover {
+.signup-form button:hover,
+.signup-btn:hover {
     background-color: #01579b; /* Darker blue */
 }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="authority_all_announcement.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -34,7 +36,7 @@
         </form>
 
         <div class="announcement-list">
-            
+
             <div class="announcement-card">
                 <form action="#" class="announcement-form">
                     <input type="hidden" name="announcement_id" value="1">
@@ -89,4 +91,5 @@
     </footer>
 
 </body>
+
 </html>

@@ -9,6 +9,24 @@
 </head>
 <body>
 
+    <?php
+    require_once '../Model/IssueModel.php';
+
+    // Collect up to 10 of the most recent incidents
+    $incidents = [];
+    $allIncidents = getAllIssues();
+
+    if ($allIncidents && mysqli_num_rows($allIncidents) > 0) {
+        $count = 0;
+        $limit = 10;
+
+        while ($count < $limit && ($row = mysqli_fetch_assoc($allIncidents))) {
+            $incidents[] = $row;
+            $count++;
+        }
+    }
+    ?>
+
     <header>
         <div class="logo">
             <h1>CityWatch</h1>
@@ -39,32 +57,29 @@
 
                 <div class="incident-container">
                     
-                    <article class="incident-card">
-                        <img src="images/image1.jpg" alt="Issue Image">
-                        <div class="card-text">
-                            <h4>Damaged Road</h4>
-                            <p><strong>Location:</strong> Uttara main road</p>
-                            <p>Broken and damaged steets</p>
-                        </div>
-                    </article>
-
-                    <article class="incident-card">
-                        <img src="images/image2.jpg" alt="Issue Image">
-                        <div class="card-text">
-                            <h4>Broken Streetlight</h4>
-                            <p><strong>Location:</strong>Kuril</p>
-                            <p>Lights are not working.</p>
-                        </div>
-                    </article>
-
-                    <article class="incident-card">
-                        <img src="images/image3.jpg" alt="Issue Image">
-                        <div class="card-text">
-                            <h4>Garbage Pileup</h4>
-                            <p><strong>Location:</strong>Mirpur</p>
-                            <p>Waste has not been collected.</p>
-                        </div>
-                    </article>
+                    <?php if (count($incidents) > 0): ?>
+                        <?php foreach ($incidents as $incident): ?>
+                            <article class="incident-card">
+                                <?php if (!empty($incident['image'])): ?>
+                                    <img src="../Images/<?php echo htmlspecialchars($incident['image']); ?>" alt="Issue Image">
+                                <?php else: ?>
+                                    <img src="images/placeholder.jpg" alt="No Image">
+                                <?php endif; ?>
+                                <div class="card-text">
+                                    <h4><?php echo htmlspecialchars($incident['title']); ?></h4>
+                                    <p><strong>Location:</strong> <?php echo htmlspecialchars($incident['location']); ?></p>
+                                    <p><?php echo htmlspecialchars(substr($incident['description'], 0, 100)); ?>...</p>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <article class="incident-card">
+                            <div class="card-text">
+                                <h4>No Reports Yet</h4>
+                                <p>Be the first to report an issue in your area!</p>
+                            </div>
+                        </article>
+                    <?php endif; ?>
 
                 </div>
 

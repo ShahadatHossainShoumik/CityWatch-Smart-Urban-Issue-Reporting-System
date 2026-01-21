@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +9,17 @@
     <link rel="stylesheet" href="manage_citizen.css">
     <link rel="stylesheet" href="update_citizen.css">
 </head>
+
 <body>
 
     <?php
+
     session_start();
     require_once '../../Model/AdminModel.php';
+    require_once '../../Model/UserModel.php';
 
     // Check admin
-    if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         header("Location: ../login.php");
         exit();
     }
@@ -24,20 +28,20 @@
     $searchTerm = '';
 
     // Get citizen by ID if provided
-    if(isset($_GET['id'])){
+    if (isset($_GET['id'])) {
         $id = intval($_GET['id']);
         $citizen = getUserById($id);
-    } elseif(isset($_GET['search']) && !empty($_GET['search'])){
+    } elseif (isset($_GET['search']) && !empty($_GET['search'])) {
         $searchTerm = $_GET['search'];
         // Search by email
         $allCitizens = getUsersByRole('citizen');
-        foreach($allCitizens as $c){
-            if(stripos($c['email'], $searchTerm) !== false || stripos($c['name'], $searchTerm) !== false){
+        foreach ($allCitizens as $c) {
+            if (stripos($c['email'], $searchTerm) !== false || stripos($c['name'], $searchTerm) !== false) {
                 $citizen = $c;
                 break;
             }
         }
-        if(!$citizen){
+        if (!$citizen) {
             $noResult = "No citizen found with that email or name";
         }
     }
@@ -62,41 +66,54 @@
         <p class="subtitle">Search and update registered citizen details.</p>
 
         <form action="update_citizen.php" method="GET" class="search-form" style="margin-bottom: 20px;">
-            <input type="text" name="search" placeholder="Search by email or name..." value="<?php echo htmlspecialchars($searchTerm); ?>" required>
+            <input type="text" name="search" placeholder="Search by email or name..."
+                value="<?php echo htmlspecialchars($searchTerm); ?>" required>
             <button type="submit">Search</button>
         </form>
 
-        <?php if(isset($noResult)): ?>
+        <?php if (isset($noResult)): ?>
             <div style="padding: 15px; margin-bottom: 20px; background-color: #ff9800; color: white; border-radius: 5px;">
                 <?php echo $noResult; ?>
             </div>
         <?php endif; ?>
 
-        <?php if($citizen): ?>
-            <form action="../../Controller/AdminController.php" method="POST" class="update-citizen-form" style="max-width: 600px; margin: 0 auto;">
+        <?php if ($citizen): ?>
+            <form action="../../Controller/AdminController.php" method="POST" class="update-citizen-form"
+                style="max-width: 600px; margin: 0 auto;">
                 <input type="hidden" name="action" value="edit_citizen">
                 <input type="hidden" name="id" value="<?php echo $citizen['id']; ?>">
 
                 <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($citizen['name']); ?>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
+                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($citizen['name']); ?>" required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($citizen['email']); ?>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($citizen['email']); ?>"
+                    required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
                 <label for="mobile">Mobile Number:</label>
-                <input type="text" id="mobile" name="mobile" value="<?php echo htmlspecialchars($citizen['mobile'] ?? ''); ?>" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
+                <input type="text" id="mobile" name="mobile"
+                    value="<?php echo htmlspecialchars($citizen['mobile'] ?? ''); ?>"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
                 <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($citizen['dob'] ?? ''); ?>" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
+                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($citizen['dob'] ?? ''); ?>"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
                 <label for="nid">NID (National ID):</label>
-                <input type="text" id="nid" name="nid" value="<?php echo htmlspecialchars($citizen['nid'] ?? ''); ?>" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
+                <input type="text" id="nid" name="nid" value="<?php echo htmlspecialchars($citizen['nid'] ?? ''); ?>"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px;">
 
                 <label for="role">Role:</label>
-                <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($citizen['role']); ?>" disabled style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; background-color: #f5f5f5;">
+                <input type="text" id="role" name="role" value="<?php echo htmlspecialchars($citizen['role']); ?>" disabled
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; background-color: #f5f5f5;">
 
-                <button type="submit" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px;">Update Citizen</button>
-                <a href="manage_citizen.php" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #757575; color: white; text-decoration: none; border-radius: 3px;">Cancel</a>
+                <button type="submit"
+                    style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px;">Update
+                    Citizen</button>
+                <a href="manage_citizen.php"
+                    style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #757575; color: white; text-decoration: none; border-radius: 3px;">Cancel</a>
             </form>
         <?php else: ?>
             <div style="padding: 20px; text-align: center; background-color: #f5f5f5; border-radius: 5px;">
@@ -111,4 +128,5 @@
     </footer>
 
 </body>
+
 </html>

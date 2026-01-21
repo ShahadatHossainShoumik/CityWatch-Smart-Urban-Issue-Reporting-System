@@ -1,20 +1,22 @@
 <?php
+
 session_start();
 
-require_once('../../Model/IssueModel.php');
-require_once('../../Model/VoteModel.php');
-
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen') {
+// Verify user is authenticated citizen BEFORE requiring models
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen' || !isset($_SESSION['id'])) {
     header("Location: ../login.php");
     exit();
 }
+// Citizen is authenticated
+require_once('../../Model/IssueModel.php');
+require_once('../../Model/VoteModel.php');
 
 // Get search and filter parameters
 $search = trim($_GET['search'] ?? '');
 $filter = trim($_GET['filter'] ?? 'latest');
 
 // Validate filter value
-if(!in_array($filter, ['latest', 'upvotes', 'downvotes'])){
+if (!in_array($filter, ['latest', 'upvotes', 'downvotes'])) {
     $filter = 'latest';
 }
 
@@ -58,28 +60,32 @@ $issues = getAllIssuesWithFilter($search, $filter);
 
         <div class="top-bar">
             <form class="search-form" method="GET" action="">
-                <input type="text" name="search" placeholder="Search by location, title, or description..." value="<?php echo htmlspecialchars($search); ?>">
+                <input type="text" name="search" placeholder="Search by location, title, or description..."
+                    value="<?php echo htmlspecialchars($search); ?>">
                 <select name="filter">
                     <option value="latest" <?php echo $filter === 'latest' ? 'selected' : ''; ?>>Latest</option>
                     <option value="upvotes" <?php echo $filter === 'upvotes' ? 'selected' : ''; ?>>Most Upvoted</option>
-                    <option value="downvotes" <?php echo $filter === 'downvotes' ? 'selected' : ''; ?>>Most Downvoted</option>
+                    <option value="downvotes" <?php echo $filter === 'downvotes' ? 'selected' : ''; ?>>Most Downvoted
+                    </option>
                 </select>
                 <button type="submit">Apply</button>
-                <?php if(!empty($search) || $filter !== 'latest'){ ?>
-                    <a href="citizen_dashboard.php" style="padding: 8px 15px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; color: #666;">Clear</a>
+                <?php if (!empty($search) || $filter !== 'latest') { ?>
+                    <a href="citizen_dashboard.php"
+                        style="padding: 8px 15px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; color: #666;">Clear</a>
                 <?php } ?>
             </form>
         </div>
 
         <h2>Incidents Feed</h2>
-        
-        <?php if(!empty($search)){ ?>
+
+        <?php if (!empty($search)) { ?>
             <p style="padding: 10px; background: #e3f2fd; border-radius: 5px; color: #0277bd;">
                 Showing results for: <strong><?php echo htmlspecialchars($search); ?></strong>
             </p>
         <?php } ?>
 
         <?php
+
         // Check if query executed and display results
         if ($issues === false) {
             echo "<p style='color: red; padding: 15px; background: #ffebee; border-radius: 5px;'>Database query failed. Please check database connection.</p>";
@@ -94,22 +100,28 @@ $issues = getAllIssuesWithFilter($search, $filter);
                 ?>
                 <div class="incident-card">
 
-                    <h3><a href="citizen_incident_details.php?id=<?php echo $row['id']; ?>" style="color: #0277bd; text-decoration: none;"><?php echo htmlspecialchars($row['title']); ?></a></h3>
+                    <h3><a href="citizen_incident_details.php?id=<?php echo $row['id']; ?>"
+                            style="color: #0277bd; text-decoration: none;"><?php echo htmlspecialchars($row['title']); ?></a>
+                    </h3>
 
                     <p><b>Posted by:</b> <?php echo htmlspecialchars($row['name']); ?></p>
                     <p><b>Location:</b> <?php echo htmlspecialchars($row['location']); ?></p>
-                    <p><?php echo htmlspecialchars(substr($row['description'], 0, 150)); ?><?php echo strlen($row['description']) > 150 ? '...' : ''; ?></p>
+                    <p><?php echo htmlspecialchars(substr($row['description'], 0, 150)); ?><?php echo strlen($row['description']) > 150 ? '...' : ''; ?>
+                    </p>
 
                     <?php if (!empty($row['image'])) { ?>
                         <img src="../../Images/<?php echo htmlspecialchars($row['image']); ?>" width="200">
                     <?php } ?>
 
-                    <div class="vote-section" id="vote-<?php echo $row['id']; ?>" style="margin-top: 15px; display: flex; gap: 20px; align-items: center;">
-                        <button class="vote-btn upvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="up" style="padding: 8px 12px; border: 1px solid #4CAF50; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            👍 <span class="upvote-count"><?php echo $issue_upvotes; ?></span>
+                    <div class="vote-section" id="vote-<?php echo $row['id']; ?>"
+                        style="margin-top: 15px; display: flex; gap: 20px; align-items: center;">
+                        <button class="vote-btn upvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="up"
+                            style="padding: 8px 12px; border: 1px solid #4CAF50; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Up-Vote <span class="upvote-count"><?php echo $issue_upvotes; ?></span>
                         </button>
-                        <button class="vote-btn downvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="down" style="padding: 8px 12px; border: 1px solid #f44336; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            👎 <span class="downvote-count"><?php echo $issue_downvotes; ?></span>
+                        <button class="vote-btn downvote-btn" data-issue="<?php echo $row['id']; ?>" data-vote="down"
+                            style="padding: 8px 12px; border: 1px solid #f44336; background: #f0f0f0; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Down-Vote <span class="downvote-count"><?php echo $issue_downvotes; ?></span>
                         </button>
                         <span id="vote-message-<?php echo $row['id']; ?>" style="font-size: 0.9rem; color: #666;"></span>
                     </div>
@@ -127,49 +139,49 @@ $issues = getAllIssuesWithFilter($search, $filter);
     </footer>
 
     <script>
-    // Handle vote button clicks
-    document.querySelectorAll('.vote-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const issueId = this.dataset.issue;
-            const voteType = this.dataset.vote;
-            
-            // AJAX request to vote
-            const formData = new FormData();
-            formData.append('issue_id', issueId);
-            formData.append('vote', voteType);
-            
-            fetch('../../Controller/VoteController.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    // Update vote counts
-                    document.querySelector(`#vote-${issueId} .upvote-count`).textContent = data.up_votes;
-                    document.querySelector(`#vote-${issueId} .downvote-count`).textContent = data.down_votes;
-                    
-                    // Update button styling based on user vote
-                    const upBtn = document.querySelector(`#vote-${issueId} .upvote-btn`);
-                    const downBtn = document.querySelector(`#vote-${issueId} .downvote-btn`);
-                    
-                    upBtn.style.background = data.user_vote === 'up' ? '#c8e6c9' : '#f0f0f0';
-                    downBtn.style.background = data.user_vote === 'down' ? '#ffcdd2' : '#f0f0f0';
-                    
-                    // Show feedback message
-                    document.querySelector(`#vote-message-${issueId}`).textContent = data.message;
-                    setTimeout(() => {
-                        document.querySelector(`#vote-message-${issueId}`).textContent = '';
-                    }, 2000);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.querySelector(`#vote-message-${issueId}`).textContent = 'Error voting';
+        // Handle vote button clicks
+        document.querySelectorAll('.vote-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const issueId = this.dataset.issue;
+                const voteType = this.dataset.vote;
+
+                // AJAX request to vote
+                const formData = new FormData();
+                formData.append('issue_id', issueId);
+                formData.append('vote', voteType);
+
+                fetch('../../Controller/VoteController.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update vote counts
+                            document.querySelector(`#vote-${issueId} .upvote-count`).textContent = data.up_votes;
+                            document.querySelector(`#vote-${issueId} .downvote-count`).textContent = data.down_votes;
+
+                            // Update button styling based on user vote
+                            const upBtn = document.querySelector(`#vote-${issueId} .upvote-btn`);
+                            const downBtn = document.querySelector(`#vote-${issueId} .downvote-btn`);
+
+                            upBtn.style.background = data.user_vote === 'up' ? '#c8e6c9' : '#f0f0f0';
+                            downBtn.style.background = data.user_vote === 'down' ? '#ffcdd2' : '#f0f0f0';
+
+                            // Show feedback message
+                            document.querySelector(`#vote-message-${issueId}`).textContent = data.message;
+                            setTimeout(() => {
+                                document.querySelector(`#vote-message-${issueId}`).textContent = '';
+                            }, 2000);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.querySelector(`#vote-message-${issueId}`).textContent = 'Error voting';
+                    });
             });
         });
-    });
     </script>
 
 </body>

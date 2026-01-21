@@ -1,12 +1,15 @@
 <?php
 session_start();
-require_once('../../Model/IssueModel.php');
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen') {
+// Verify user is authenticated citizen BEFORE including models
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen' || !isset($_SESSION['id'])) {
     header("Location: ../login.php");
     exit();
 }
 
+// Now safe to require models and use $_SESSION
+require_once('../../Model/IssueModel.php');
+// Fetch user's uploaded issues
 $user_id = $_SESSION['id'];
 $issues = getIssuesByUser($user_id);
 ?>
@@ -37,7 +40,7 @@ $issues = getIssuesByUser($user_id);
 
     <div class="content">
         <h2>My Uploads</h2>
-
+        //give feedback message
         <?php if (isset($_SESSION['msg'])) { ?>
             <div class="flash"
                 style="padding: 12px 14px; background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 6px; margin-bottom: 15px; color: #2e7d32; font-weight: 600;">
@@ -45,7 +48,7 @@ $issues = getIssuesByUser($user_id);
                 unset($_SESSION['msg']); ?>
             </div>
         <?php } ?>
-
+        //display user's issues
         <?php if ($issues && mysqli_num_rows($issues) > 0) { ?>
             <?php while ($issue = mysqli_fetch_assoc($issues)) { ?>
                 <div class="incident-card">
@@ -55,18 +58,24 @@ $issues = getIssuesByUser($user_id);
                             <?php echo (empty($issue['status']) || $issue['status'] === 'reviewed' || $issue['status'] === 'resolved') ? 'background: #c8e6c9; color: #2e7d32;' :
                                 (($issue['status'] === 'rejected') ? 'background: #ffcdd2; color: #c62828;' :
                                     'background: #fff3cd; color: #856404;'); ?>">
-                            <?php 
-                                $statusDisplay = $issue['status'];
-                                if(empty($issue['status'])) $statusDisplay = 'Approved';
-                                elseif($issue['status'] === 'reviewed') $statusDisplay = 'Reviewed';
-                                elseif($issue['status'] === 'resolved') $statusDisplay = 'Resolved';
-                                elseif($issue['status'] === 'pending') $statusDisplay = 'Pending';
-                                else $statusDisplay = ucfirst($issue['status']);
-                                echo $statusDisplay;
+                            <?php
+                            $statusDisplay = $issue['status'];
+                            if (empty($issue['status'])) {
+                                $statusDisplay = 'Approved';
+                            } elseif ($issue['status'] === 'reviewed') {
+                                $statusDisplay = 'Reviewed';
+                            } elseif ($issue['status'] === 'resolved') {
+                                $statusDisplay = 'Resolved';
+                            } elseif ($issue['status'] === 'pending') {
+                                $statusDisplay = 'Pending';
+                            } else {
+                                $statusDisplay = ucfirst($issue['status']);
+                            }
+                            echo $statusDisplay;
                             ?>
                         </span>
                     </div>
-
+                    //edit and delete forms
                     <form class="edit-form" action="../../Controller/CitizenUploadsController.php" method="POST"
                         enctype="multipart/form-data">
                         <input type="hidden" name="edit_issue" value="1">

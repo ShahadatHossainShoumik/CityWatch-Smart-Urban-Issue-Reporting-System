@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once('../Model/IssueModel.php');
-//insert new issue
+
+// insert new issue
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // User must be logged in
@@ -10,13 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../View/login.php");
         exit();
     }
-
-    $user_id     = $_SESSION['id'];
-    $title       = $_POST['title'];
+    // gather form data
+    $user_id = $_SESSION['id'];
+    $title = $_POST['title'];
     $description = $_POST['description'];
-    $location    = $_POST['location'];
+    $location = $_POST['location'];
 
-    //image upload
+    // image upload
     $imageName = "";
 
     if (!empty($_FILES['issue_image']['name'])) {
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Unique filename
         $imageName = time() . "_" . $originalName;
 
-        // Absolute Images directory (capital I)
+        // Absolute Images directory 
         $imageDir = __DIR__ . '/../Images';
 
         // Create Images folder if not exists
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    //insert issue into database
+    // insert issue into database
     $status = insertIssue($user_id, $title, $description, $location, $imageName);
 
     if ($status) {
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-//admin approve/reject issue
+// admin approve/reject issue
 if (isset($_GET['issue_id']) && isset($_GET['action'])) {
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -68,7 +69,7 @@ if (isset($_GET['issue_id']) && isset($_GET['action'])) {
     }
 
     $issue_id = $_GET['issue_id'];
-    $action   = $_GET['action']; 
+    $action = $_GET['action'];
 
     if ($action === 'approve') {
         $status = updateIssueStatus($issue_id, 'approved');

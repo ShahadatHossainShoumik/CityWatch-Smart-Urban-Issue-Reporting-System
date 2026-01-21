@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="authority_profile.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -41,7 +43,8 @@
                 <div class="field full">
                     <label for="new_password">New Password</label>
                     <input type="password" id="new_password" name="new_password" required>
-                    <small class="hint">Must contain atleast 8 characters along with numbers and special characters</small>
+                    <small class="hint">Must contain atleast 8 characters along with numbers and special
+                        characters</small>
                 </div>
                 <div class="field full">
                     <label for="confirm_password">Confirm New Password</label>
@@ -58,4 +61,5 @@
         <p>&copy; 2026 CityWatch. All Rights Reserved.</p>
     </footer>
 </body>
+
 </html>

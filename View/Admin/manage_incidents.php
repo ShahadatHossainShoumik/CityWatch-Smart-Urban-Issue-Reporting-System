@@ -2,11 +2,12 @@
 session_start();
 require_once('../../Model/IssueModel.php');
 
+// Verify admin access
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../login.php");
     exit();
 }
-
+// Fetch all issues
 $issues = getAllIssuesForAdmin();
 ?>
 
@@ -46,7 +47,40 @@ $issues = getAllIssuesForAdmin();
         <?php } ?>
 
         <h2>Manage Incidents</h2>
+        <button onclick="toggleAddForm()" class="btn"
+            style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; margin-bottom: 20px;">+
+            Add Incident</button>
 
+        <div id="add-incident-form" class="form-container"
+            style="display:none; margin-bottom: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px; max-width: 600px;">
+            <h3>Add New Incident</h3>
+            <form action="../../Controller/AdminController.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="add_incident">
+
+                <label for="add-title">Title:</label>
+                <input type="text" id="add-title" name="title" required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+
+                <label for="add-location">Location:</label>
+                <input type="text" id="add-location" name="location" required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+
+                <label for="add-description">Description:</label>
+                <textarea id="add-description" name="description" rows="5" required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; font-family: Arial, sans-serif;"></textarea>
+
+                <label for="add-image">Image (Optional):</label>
+                <input type="file" id="add-image" name="issue_image" accept="image/*"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+
+                <button type="submit" class="btn-submit"
+                    style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; margin-right: 10px;">Create
+                    Incident</button>
+                <button type="button" class="btn-cancel" onclick="closeAddForm()"
+                    style="padding: 10px 20px; background-color: #757575; color: white; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
+            </form>
+        </div>
+        <!--table of incidents-->
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <thead>
                 <tr style="background-color: #f0f0f0;">
@@ -75,25 +109,32 @@ $issues = getAllIssuesForAdmin();
                                 <form action="../../Controller/AdminController.php" method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="update_incident_status">
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <select name="status" onchange="this.form.submit()" style="padding: 5px; border-radius: 3px;">
-                                        <option value="pending" <?php echo ($row['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
-                                        <option value="reviewed" <?php echo ($row['status'] == 'reviewed') ? 'selected' : ''; ?>>Reviewed</option>
-                                        <option value="resolved" <?php echo ($row['status'] == 'resolved') ? 'selected' : ''; ?>>Resolved</option>
+                                    <select name="status" onchange="this.form.submit()"
+                                        style="padding: 5px; border-radius: 3px;">
+                                        <option value="pending" <?php echo ($row['status'] == 'pending') ? 'selected' : ''; ?>>
+                                            Pending</option>
+                                        <option value="reviewed" <?php echo ($row['status'] == 'reviewed') ? 'selected' : ''; ?>>
+                                            Reviewed</option>
+                                        <option value="resolved" <?php echo ($row['status'] == 'resolved') ? 'selected' : ''; ?>>
+                                            Resolved</option>
                                     </select>
                                 </form>
                             </td>
                             <td style="padding: 12px; border: 1px solid #ddd;">
-                                <form action="../../Controller/AdminController.php" method="POST" style="display:inline;" onsubmit="return confirm('Delete this incident?');">
+                                <form action="../../Controller/AdminController.php" method="POST" style="display:inline;"
+                                    onsubmit="return confirm('Delete this incident?');">
                                     <input type="hidden" name="action" value="delete_incident">
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <button type="submit" class="btn-delete" style="padding: 8px 12px; background-color: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">Delete</button>
+                                    <button type="submit" class="btn-delete"
+                                        style="padding: 8px 12px; background-color: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">Delete</button>
                                 </form>
                             </td>
                         </tr>
                     <?php } ?>
                 <?php } else { ?>
                     <tr>
-                        <td colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">No incidents found</td>
+                        <td colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">No incidents
+                            found</td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -104,6 +145,17 @@ $issues = getAllIssuesForAdmin();
     <footer>
         <p>&copy; 2026 CityWatch. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function toggleAddForm() {
+            const form = document.getElementById('add-incident-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeAddForm() {
+            document.getElementById('add-incident-form').style.display = 'none';
+        }
+    </script>
 
 </body>
 

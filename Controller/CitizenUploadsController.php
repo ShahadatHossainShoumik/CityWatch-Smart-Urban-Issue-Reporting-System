@@ -32,8 +32,8 @@ if (isset($_POST['edit_issue'])) {
         header("Location: ../View/Citizen/citizen_my_uploads.php");
         exit();
     }
-
-    $imagePath = $issue['image']; // keep existing image by default
+    // keep existing image by default
+    $imagePath = $issue['image'];
 
     // handle new image upload
     if (isset($_FILES['issue_image']) && $_FILES['issue_image']['name'] != "") {

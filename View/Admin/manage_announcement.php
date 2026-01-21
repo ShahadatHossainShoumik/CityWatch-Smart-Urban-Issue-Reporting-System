@@ -10,11 +10,12 @@
 <body>
 
     <?php
+
     session_start();
     require_once '../../Model/AnnouncementModel.php';
 
     // Check admin
-    if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    if (! isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         header("Location: ../login.php");
         exit();
     }
@@ -22,10 +23,10 @@
     // Get all announcements
     $announcements = getAllAnnouncements();
     $searchTerm = '';
-    if(isset($_GET['search']) && !empty($_GET['search'])){
+    if (isset($_GET['search']) && ! empty($_GET['search'])) {
         $searchTerm = $_GET['search'];
-        $announcements = array_filter($announcements, function($announcement) use ($searchTerm){
-            return stripos($announcement['title'], $searchTerm) !== false || stripos($announcement['message'], $searchTerm) !== false;
+        $announcements = array_filter($announcements, function($announcement) use ($searchTerm) {
+            return stripos($announcement['title'], $searchTerm) !== false || stripos($announcement['description'] ?? '', $searchTerm) !== false;
         });
     }
     ?>
@@ -59,18 +60,35 @@
                 <input type="text" name="search" placeholder="Search by title..." value="<?php echo htmlspecialchars($searchTerm); ?>">
                 <button type="submit">Search</button>
             </form>
+            <button onclick="toggleAddForm()" class="btn" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; margin-left: 10px;">+ Add Announcement</button>
         </div>
 
-        <?php if(count($announcements) > 0): ?>
-            <?php foreach($announcements as $announcement): ?>
+        <div id="add-announcement-form" class="form-container" style="display:none; margin-top: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px; max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
+            <h3>Add New Announcement</h3>
+            <form action="../../Controller/AdminController.php" method="POST">
+                <input type="hidden" name="action" value="add_announcement">
+                
+                <label for="add-title">Title:</label>
+                <input type="text" id="add-title" name="title" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+
+                <label for="add-message">Message:</label>
+                <textarea id="add-message" name="message" rows="5" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; font-family: Arial, sans-serif;"></textarea>
+
+                <button type="submit" class="btn-submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; margin-right: 10px;">Create Announcement</button>
+                <button type="button" class="btn-cancel" onclick="closeAddForm()" style="padding: 10px 20px; background-color: #757575; color: white; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
+            </form>
+        </div>
+        // Display announcements
+        <?php if (count($announcements) > 0): ?>
+            <?php foreach ($announcements as $announcement): ?>
                 <div class="announcement-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
                     <h3><?php echo htmlspecialchars($announcement['title']); ?></h3>
                     <p><strong>Created by:</strong> <?php echo htmlspecialchars($announcement['author_id']); ?></p>
                     <p><strong>Created at:</strong> <?php echo date('M d, Y - H:i', strtotime($announcement['created_at'] ?? 'now')); ?></p>
-                    <p class="desc"><?php echo htmlspecialchars(substr($announcement['message'], 0, 100)) . '...'; ?></p>
+                    <p class="desc"><?php echo htmlspecialchars(substr($announcement['description'] ?? '', 0, 100)) . '...'; ?></p>
                     
                     <div class="card-actions" style="margin-top: 15px;">
-                        <button class="btn btn-edit" onclick="editAnnouncement(<?php echo $announcement['id']; ?>, '<?php echo htmlspecialchars($announcement['title']); ?>', '<?php echo htmlspecialchars($announcement['message']); ?>')">Edit</button>
+                        <button class="btn btn-edit" onclick="editAnnouncement(<?php echo $announcement['id']; ?>, '<?php echo htmlspecialchars($announcement['title'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($announcement['description'] ?? '', ENT_QUOTES); ?>')">Edit</button>
                         <form action="../../Controller/AdminController.php" method="POST" style="display:inline;" onsubmit="return confirm('Delete this announcement?');">
                             <input type="hidden" name="action" value="delete_announcement">
                             <input type="hidden" name="id" value="<?php echo $announcement['id']; ?>">
@@ -84,7 +102,7 @@
                 <p>No announcements found</p>
             </div>
         <?php endif; ?>
-
+        // Edit announcement form
         <div id="edit-announcement-form" class="form-container" style="display:none; margin-top: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px; max-width: 600px; margin-left: auto; margin-right: auto;">
             <h3>Edit Announcement</h3>
             <form action="../../Controller/AdminController.php" method="POST">
@@ -109,13 +127,23 @@
     </footer>
 
     <script>
+        //add announcement form toggle
+        function toggleAddForm(){
+            const form = document.getElementById('add-announcement-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+        //disable add form
+        function closeAddForm(){
+            document.getElementById('add-announcement-form').style.display = 'none';
+        }
+        // edit announcement form
         function editAnnouncement(id, title, message){
             document.getElementById('edit-id').value = id;
             document.getElementById('edit-title').value = title;
             document.getElementById('edit-message').value = message;
             document.getElementById('edit-announcement-form').style.display = 'block';
         }
-
+        //close edit form
         function closeEditForm(){
             document.getElementById('edit-announcement-form').style.display = 'none';
         }

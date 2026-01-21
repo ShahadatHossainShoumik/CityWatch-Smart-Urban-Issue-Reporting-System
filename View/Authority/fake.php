@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="authority_dashboard.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -33,10 +35,10 @@
                 <p><strong>Location:</strong></p>
                 <p><strong>Citizen Name:</strong></p>
                 <p><strong>Description:</strong></p>
-                <p><strong>Upvotes:</strong>  | <strong>Downvotes:</strong></p>
+                <p><strong>Upvotes:</strong> | <strong>Downvotes:</strong></p>
 
                 <div class="incident-images">
-                     <img src="../images/image1.jpg" class="incident-image" alt="Fake Incident Image" />
+                    <img src="../images/image1.jpg" class="incident-image" alt="Fake Incident Image" />
                 </div>
 
                 <p style="color: red; font-weight: bold; margin-top: 10px;">Status: Marked as Fake</p>
@@ -47,10 +49,10 @@
                 <p><strong>Location:</strong></p>
                 <p><strong>Citizen Name:</strong></p>
                 <p><strong>Description:</strong></p>
-                <p><strong>Upvotes:</strong>  | <strong>Downvotes:</strong></p>
+                <p><strong>Upvotes:</strong> | <strong>Downvotes:</strong></p>
 
                 <div class="incident-images">
-                     <img src="../images/image2.jpg" class="incident-image" alt="Fake Incident Image" />
+                    <img src="../images/image2.jpg" class="incident-image" alt="Fake Incident Image" />
                 </div>
 
                 <p style="color:red; font-weight: bold; margin-top: 10px;">Status: Marked as Fake</p>
@@ -65,4 +67,5 @@
     </footer>
 
 </body>
+
 </html>

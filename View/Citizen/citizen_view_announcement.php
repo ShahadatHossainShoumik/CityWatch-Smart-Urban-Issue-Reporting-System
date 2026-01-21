@@ -1,16 +1,19 @@
 <?php
 session_start();
-require_once('../../Model/AnnouncementModel.php');
 
-if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen'){
+// Verify user is authenticated citizen BEFORE requiring models
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen') {
     header("Location: ../login.php");
     exit();
 }
+
+require_once('../../Model/AnnouncementModel.php');
 
 $announcements = getAllAnnouncements();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +21,7 @@ $announcements = getAllAnnouncements();
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="citizen_view_announcement.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -28,7 +32,7 @@ $announcements = getAllAnnouncements();
             <li><a href="citizen_my_uploads.php">My Uploads</a></li>
             <li><a href="citizen_view_announcement.php" class="active">Announcement</a></li>
             <li><a href="citizen_profile.php">Profile</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
     </div>
 
@@ -36,12 +40,13 @@ $announcements = getAllAnnouncements();
         <h2>Active Announcements</h2>
         <p class="section-subtitle">Important updates from city administration.</p>
 
-        <?php if($announcements && mysqli_num_rows($announcements) > 0){ ?>
-            <?php while($announcement = mysqli_fetch_assoc($announcements)){ ?>
+        <?php if (!empty($announcements)) { ?>
+            <?php foreach ($announcements as $announcement) { ?>
                 <div class="announcement-card">
                     <h3><?php echo htmlspecialchars($announcement['title']); ?></h3>
                     <p><?php echo nl2br(htmlspecialchars($announcement['description'] ?? '')); ?></p>
-                    <p class="created-at"><strong>Posted on:</strong> <?php echo date('F j, Y \a\t g:i A', strtotime($announcement['created_at'])); ?></p>
+                    <p class="created-at"><strong>Posted on:</strong>
+                        <?php echo date('F j, Y \a\t g:i A', strtotime($announcement['created_at'])); ?></p>
                 </div>
             <?php } ?>
         <?php } else { ?>
@@ -57,4 +62,5 @@ $announcements = getAllAnnouncements();
     </footer>
 
 </body>
+
 </html>

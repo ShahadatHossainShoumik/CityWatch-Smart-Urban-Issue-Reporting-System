@@ -1,3 +1,4 @@
+// Slider functionality for incident cards
 let currentSlide = 0;
 
         function moveSlide(direction) {

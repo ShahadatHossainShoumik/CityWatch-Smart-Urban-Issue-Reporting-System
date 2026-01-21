@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../dashboard.css">
     <link rel="stylesheet" href="authority_dashboard.css">
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -23,7 +25,7 @@
 
     <div class="content">
         <h3 class="page-title">All Incidents</h3>
-        
+
         <form action="#" method="GET" class="filter-form">
             <label>Filter:</label>
             <select name="filter" onchange="this.form.submit()">
@@ -47,7 +49,7 @@
 
                 <form action="#" method="POST" class="resource-form">
                     <input type="hidden" name="incident_id" value="101">
-                    
+
                     <label class="resource-label">Select Resource to Deploy:</label>
                     <div class="checkbox-group">
                         <label><input type="checkbox" name="resource[]" value="Fire Service"> Fire Service</label>
@@ -72,7 +74,7 @@
 
                 <form action="#" method="POST" class="resource-form">
                     <input type="hidden" name="incident_id" value="102">
-                    
+
                     <label class="resource-label">Select Resource to Deploy:</label>
                     <div class="checkbox-group">
                         <label><input type="checkbox" name="resource[]" value="Fire Service"> Fire Service</label>
@@ -94,4 +96,5 @@
     </footer>
 
 </body>
+
 </html>

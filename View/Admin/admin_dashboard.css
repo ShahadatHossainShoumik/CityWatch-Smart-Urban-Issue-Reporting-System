@@ -1,147 +1,353 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: aliceblue; /* CityWatch:  Light Blue Background */
+    font-family: sans-serif;
+    background-color: aliceblue;
     color: #333;
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
 }
 
-/* Content Section */
-.content {
-    margin: 0 auto;
-    padding: 40px 20px;
-    max-width: 1200px;
-    flex: 1; /* Pushes footer to bottom */
+.layout {
+    display: flex;
+    min-height: 100vh;
 }
 
-/* Header Styling */
-h2 {
-    font-size: 2.5em;
-    color: #0277bd; /* CityWatch Blue */
+/* Sidebar Styling */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0277bd;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.brand {
+    border-bottom: 1px solid #4fc3f7;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.brand-mark {
+    display: none;
+}
+
+.brand-title {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.brand-sub {
+    color: #b3e5fc;
+    font-size: 0.9rem;
+}
+
+.nav {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-item {
+    color: #e1f5fe;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 12px;
+    margin-bottom: 5px;
+    transition: background 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #01579b;
+    color: white;
+}
+
+.nav-item.active {
+    background-color: #01579b;
+    color: white;
+}
+
+.nav-item.danger {
+    color: #ffcdd2;
+}
+
+.nav-foot {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    color: #b3e5fc;
+    font-size: 0.85rem;
+    border-top: 1px solid #4fc3f7;
+    padding-top: 15px;
+}
+
+.main {
+    margin-left: 220px;
+    padding: 30px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+
+.topbar {
     margin-bottom: 30px;
-    text-align: center;
 }
 
-/* Dashboard Analytics Section */
-.dashboard-analytics {
-    display: grid;
-    gap: 25px;
-    margin-top: 20px;
+.eyebrow {
+    text-transform: uppercase;
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
 }
 
-.analytics-box {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #b3e5fc; /* Light Blue Border */
-    text-align: center;
-}
-
-.analytics-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    border-color: #0288d1;
-}
-
-.analytics-box h4 {
-    font-size: 1.2em;
-    color: #555;
+h1 {
+    color: #0277bd;
+    font-size: 2rem;
     margin-bottom: 10px;
 }
 
-.analytics-box p {
-    font-size: 2.5em;
+.lede {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.primary, .ghost {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
     font-weight: bold;
-    color: #0288d1; /* Blue numbers */
+    font-size: 0.95rem;
 }
 
-/* Quick Actions Section */
-.quick-actions {
-    margin-top: 50px;
+.primary {
+    background: #0288d1;
+    border: none;
+    color: white;
 }
 
-.quick-actions h3 {
-    font-size: 2em;
+.primary:hover { 
+    background: #01579b; 
+}
+
+.ghost {
+    background: white;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.ghost:hover { 
+    border-color: #0288d1; 
+    color: #0288d1; 
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.kpi-card {
+    background: white;
+    border: 1px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.kpi-card.alert { 
+    border-left: 4px solid #f44336; 
+}
+
+.label {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
     color: #0277bd;
-    margin-bottom: 25px;
-    text-align: center;
-    border-bottom: 2px solid #e1f5fe;
-    padding-bottom: 10px;
-    display: inline-block;
+}
+
+.hint {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.progress {
     width: 100%;
+    height: 8px;
+    background: #e3f2fd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    background: #0288d1;
+}
+
+.progress.danger span {
+    background: #f44336;
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.role-card {
+    background: white;
+    border: 1px solid #b3e5fc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.actions-panel {
+    background: white;
+    border: 1px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.panel-head {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e1f5fe;
+}
+
+.panel-head h3 {
+    font-size: 1.5rem;
+    color: #0277bd;
+    margin-bottom: 5px;
 }
 
 .actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-.btn-action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Space between icon and text */
-    padding: 20px;
-    background-color: #0288d1; /* CityWatch Blue */
-    color: white;
-    text-align: center;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 8px;
+.action-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px;
     text-decoration: none;
+    color: #333;
+    transition: all 0.2s;
 }
 
-.btn-action i {
-    font-size: 1.2em;
+.action-card:hover {
+    border-color: #0288d1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.btn-action:hover {
-    background-color: #01579b; /* Darker Blue */
+.action-card.danger:hover {
+    border-color: #f44336;
 }
 
-/* Logout Button Styling */
-.logout-btn-container {
-    position: absolute;
-    top: 20px;
-    right: 30px;
+.action-card h4 { 
+    margin: 8px 0 4px; 
+    color: #333;
+    font-size: 1rem;
 }
 
-.logout-btn {
-    background-color: #d32f2f; /* Red for logout */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.action-card p {
+    color: #666;
+    font-size: 0.9rem;
 }
 
-.logout-btn:hover {
-    background-color: #b71c1c;
+.pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: #e3f2fd;
+    color: #0288d1;
+    font-weight: 600;
+    font-size: 0.75rem;
 }
 
-.logout-btn i {
-    margin-right: 8px;
+.pill.danger {
+    background: #ffebee;
+    color: #f44336;
 }
 
-/* Footer Styling */
 footer {
     background-color: #0277bd;
     color: white;
     text-align: center;
     padding: 15px 0;
-    margin-top: auto;
-    width: 100%;
+    margin-top: 40px;
+}
+
+@media (max-width: 960px) {
+    .sidebar { 
+        width: 180px; 
+    }
+    .main { 
+        margin-left: 180px; 
+        padding: 20px; 
+    }
+    .kpi-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .roles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .actions-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .layout {
+        display: block;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .main {
+        margin-left: 0;
+    }
+    .nav-foot {
+        position: relative;
+        margin-top: 20px;
+    }
+    .kpi-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .roles-grid {
+        grid-template-columns: 1fr;
+    }
+    .actions-grid { 
+        grid-template-columns: 1fr; 
+    }
 }

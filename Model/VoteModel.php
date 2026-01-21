@@ -1,15 +1,14 @@
 <?php
 require_once('db.php');
-
-//for fetching vote by issue id and user id
+// for fetching vote by issue_id and user_id
 function getVote($issue_id, $user_id)
 {
     $conn = dbConnect();
     $query = "SELECT * FROM votes WHERE issue_id=? AND user_id=?";
     $stmt = mysqli_prepare($conn, $query);
 
-    if($stmt){
-        mysqli_stmt_bind_param($stmt,"ii",$issue_id,$user_id);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ii", $issue_id, $user_id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
@@ -25,7 +24,7 @@ function getVote($issue_id, $user_id)
     return false;
 }
 
-//for inserting vote
+// for inserting vote
 function insertVote($issue_id, $user_id, $vote)
 {
     $conn = dbConnect();
@@ -33,8 +32,8 @@ function insertVote($issue_id, $user_id, $vote)
               VALUES (?,?,?)";
 
     $stmt = mysqli_prepare($conn, $query);
-    if($stmt){
-        mysqli_stmt_bind_param($stmt,"iis",$issue_id,$user_id,$vote);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "iis", $issue_id, $user_id, $vote);
         $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
@@ -44,7 +43,7 @@ function insertVote($issue_id, $user_id, $vote)
     return false;
 }
 
-//for updating vote
+// for updating vote
 function updateVote($issue_id, $user_id, $vote)
 {
     $conn = dbConnect();
@@ -53,8 +52,8 @@ function updateVote($issue_id, $user_id, $vote)
               WHERE issue_id=? AND user_id=?";
 
     $stmt = mysqli_prepare($conn, $query);
-    if($stmt){
-        mysqli_stmt_bind_param($stmt,"sii",$vote,$issue_id,$user_id);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "sii", $vote, $issue_id, $user_id);
         $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
@@ -64,7 +63,7 @@ function updateVote($issue_id, $user_id, $vote)
     return false;
 }
 
-//for counting votes
+// for counting votes
 function countVotes($issue_id, $type)
 {
     $conn = dbConnect();
@@ -73,8 +72,8 @@ function countVotes($issue_id, $type)
               WHERE issue_id=? AND vote=?";
 
     $stmt = mysqli_prepare($conn, $query);
-    if($stmt){
-        mysqli_stmt_bind_param($stmt,"is",$issue_id,$type);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "is", $issue_id, $type);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_assoc($result);

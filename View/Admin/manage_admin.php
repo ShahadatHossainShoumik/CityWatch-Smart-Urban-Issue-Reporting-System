@@ -10,11 +10,12 @@
 <body>
 
     <?php
+
     session_start();
     require_once '../../Model/AdminModel.php';
 
     // Check admin
-    if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    if (! isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         header("Location: ../login.php");
         exit();
     }
@@ -22,9 +23,9 @@
     // Get all admins
     $admins = getUsersByRole('admin');
     $searchTerm = '';
-    if(isset($_GET['search']) && !empty($_GET['search'])){
+    if (isset($_GET['search']) && ! empty($_GET['search'])) {
         $searchTerm = $_GET['search'];
-        $admins = array_filter($admins, function($admin) use ($searchTerm){
+        $admins = array_filter($admins, function($admin) use ($searchTerm) {
             return stripos($admin['email'], $searchTerm) !== false || stripos($admin['name'], $searchTerm) !== false;
         });
     }
@@ -47,7 +48,7 @@
     <div class="content">
         <h2>Manage Admins</h2>
         <p class="subtitle">Add or remove administrative users.</p>
-
+        
         <?php if(isset($_SESSION['msg'])): ?>
             <div class="alert alert-success">
                 <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
@@ -65,17 +66,27 @@
 
         <div id="add-admin-form" class="form-container" style="display:none;">
             <h3>Register New Admin</h3>
-            <form action="../../Controller/AdminController.php" method="POST">
+            <form id="add-admin-form-element" action="../../Controller/AdminController.php" method="POST">
                 <input type="hidden" name="action" value="add_admin">
                 
                 <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" placeholder="Admin Name" required>
+                <input type="text" id="name" name="name" placeholder="Admin Name" required onblur="validateAdminName()">
+                <span id="adminNameMessage" style="color: red; font-size: 12px;"></span>
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="admin@example.com" required>
 
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" placeholder="01XXXXXXXXX" onblur="validateAdminMobile()">
+                <span id="adminMobileMessage" style="color: red; font-size: 12px;"></span>
+
+                <label for="nid">NID (National ID):</label>
+                <input type="text" id="nid" name="nid" placeholder="10-digit NID" onblur="validateAdminNid()">
+                <span id="adminNidMessage" style="color: red; font-size: 12px;"></span>
+
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required onkeyup="validateAdminPassword()">
+                <span id="adminPasswordMessage" style="font-size: 12px;"></span>
 
                 <button type="submit" class="btn-submit">Save Admin</button>
                 <button type="button" class="btn-cancel" onclick="toggleAddAdminForm()">Cancel</button>
@@ -92,8 +103,8 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if(count($admins) > 0): ?>
-                    <?php foreach($admins as $admin): ?>
+                <?php if (count($admins) > 0): ?>
+                    <?php foreach ($admins as $admin): ?>
                         <tr data-id="<?php echo $admin['id']; ?>">
                             <td><?php echo htmlspecialchars($admin['name']); ?></td>
                             <td><?php echo htmlspecialchars($admin['email']); ?></td>
@@ -114,7 +125,7 @@
 
         <div id="edit-admin-form" class="form-container" style="display:none;">
             <h3>Edit Admin</h3>
-            <form action="../../Controller/AdminController.php" method="POST">
+            <form id="edit-admin-form-element" action="../../Controller/AdminController.php" method="POST">
                 <input type="hidden" name="action" value="edit_admin">
                 <input type="hidden" name="id" id="edit-id">
                 
@@ -165,19 +176,85 @@
         }
 
         // Handle edit form AJAX submission
-        document.getElementById('edit-admin-form')?.addEventListener('submit', function(e) {
+        document.getElementById('edit-admin-form-element')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            ajaxSubmitEditForm('edit-admin-form', 'edit_admin');
+            ajaxSubmitEditForm('edit-admin-form-element', 'edit_admin');
         });
 
-        // Handle add form AJAX submission
-        document.getElementById('add-admin-form')?.addEventListener('submit', function(e) {
+        // Handle add form AJAX submission with validation
+        document.getElementById('add-admin-form-element')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            ajaxSubmitAddForm('add-admin-form', 'add_admin');
+            const okName = validateAdminName();
+            const okMobile = validateAdminMobile();
+            const okNid = validateAdminNid();
+            const okPass = validateAdminPassword();
+            if (okName && okMobile && okNid && okPass) {
+                ajaxSubmitAddForm('add-admin-form-element', 'add_admin');
+            } else {
+                showNotification('Please fix validation errors before submitting', 'error');
+            }
         });
+
+        // Validation helpers for admin add form
+        function validateAdminName() {
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('adminNameMessage');
+            const regexName = /^[a-zA-Z\s]+$/;
+            if (name && !regexName.test(name)) {
+                message.innerHTML = 'Name should only contain letters and spaces.';
+                return false;
+            }
+            message.innerHTML = '';
+            return true;
+        }
+
+        function validateAdminMobile() {
+            const mobile = document.getElementById('phone').value;
+            const message = document.getElementById('adminMobileMessage');
+            const regexMobile = /^\d{11}$/;
+            if (mobile && !regexMobile.test(mobile)) {
+                message.innerHTML = 'Mobile number must be exactly 11 digits.';
+                return false;
+            }
+            message.innerHTML = '';
+            return true;
+        }
+
+        function validateAdminNid() {
+            const nid = document.getElementById('nid').value;
+            const message = document.getElementById('adminNidMessage');
+            const regexNid = /^\d{10}$/;
+            if (nid && !regexNid.test(nid)) {
+                message.innerHTML = 'NID must be exactly 10 digits.';
+                return false;
+            }
+            message.innerHTML = '';
+            return true;
+        }
+
+        function validateAdminPassword() {
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('adminPasswordMessage');
+            const regexWeak = /^[a-zA-Z0-9]{6,12}$/;
+            const regexStrong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
+            if (password.match(regexStrong)) {
+                message.innerHTML = 'Password is strong.';
+                message.style.color = 'green';
+                return true;
+            } else if (password.match(regexWeak)) {
+                message.innerHTML = 'Password is weak.';
+                message.style.color = 'orange';
+                return true;
+            } else if (password) {
+                message.innerHTML = 'Password should be 8-20 chars with upper, lower, and numbers.';
+                message.style.color = 'red';
+                return false;
+            }
+            message.innerHTML = '';
+            return true;
+        }
     </script>
-    <script src="ajax-helper.js"></script>
-    <script src="prefs-helper.js"></script>
+    <script src="../../Controller/ajax.js"></script>
 
 </body>
 </html>

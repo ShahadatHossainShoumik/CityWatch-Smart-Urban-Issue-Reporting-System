@@ -1,11 +1,13 @@
 <?php
 session_start();
-require_once('../../Model/UserModel.php');
 
+// Verify user is authenticated citizen with valid ID BEFORE requiring models
 if (!isset($_SESSION['id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'citizen') {
     header("Location: ../login.php");
     exit();
 }
+
+require_once('../../Model/UserModel.php');
 
 $user = getUserById($_SESSION['id']);
 if (!$user) {

@@ -1,121 +1,136 @@
 <?php
 require_once('db.php');
 
-// Get all active announcements for citizens
-function getAllAnnouncements(){
+// Get all announcements
+function getAllAnnouncements()
+{
     $conn = dbConnect();
-    
+
     $sql = "SELECT id, title, message as description, created_by as author_id, created_at FROM announcements ORDER BY created_at DESC";
-    $result = $conn->query($sql);
-    
-    if(!$result){
-        die("Query failed: " . $conn->error);
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
     }
-    
+
     $announcements = [];
-    while($row = $result->fetch_assoc()){
+    while ($row = mysqli_fetch_assoc($result)) {
         $announcements[] = $row;
     }
-    
+
+    mysqli_close($conn);
     return $announcements;
 }
 
 // Get single announcement by ID
-function getAnnouncementById($announcement_id){
+function getAnnouncementById($announcement_id)
+{
     $conn = dbConnect();
-    
+
     $sql = "SELECT id, title, message as description, created_by as author_id, created_at FROM announcements WHERE id = ? LIMIT 1";
-    $stmt = $conn->prepare($sql);
-    
-    if(!$stmt){
-        die("Prepare failed: " . $conn->error);
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        die("Prepare failed: " . mysqli_error($conn));
     }
-    
-    $stmt->bind_param("i", $announcement_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if($result->num_rows > 0){
-        return $result->fetch_assoc();
+
+    mysqli_stmt_bind_param($stmt, "i", $announcement_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        $announcement = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        return $announcement;
     }
-    
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
     return null;
 }
 
 // Create announcement (for admin/authority)
-function createAnnouncement($title, $description, $author_id){
+function createAnnouncement($title, $description, $author_id)
+{
     $conn = dbConnect();
-    
+
     $title = trim($title);
     $description = trim($description);
-    
-    if(empty($title) || empty($description)){
+
+    if (empty($title) || empty($description)) {
+        mysqli_close($conn);
         return false;
     }
-    
+
     $sql = "INSERT INTO announcements (title, message, created_by, created_at) VALUES (?, ?, ?, NOW())";
-    $stmt = $conn->prepare($sql);
-    
-    if(!$stmt){
-        die("Prepare failed: " . $conn->error);
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        die("Prepare failed: " . mysqli_error($conn));
     }
-    
-    $stmt->bind_param("ssi", $title, $description, $author_id);
-    
-    if($stmt->execute()){
-        return $conn->insert_id;
+
+    mysqli_stmt_bind_param($stmt, "ssi", $title, $description, $author_id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        $id = mysqli_insert_id($conn);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        return $id;
     }
-    
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
     return false;
 }
 
-// Update announcement (for admin/authority)
-function updateAnnouncement($announcement_id, $author_id, $title, $description){
+// Update announcement (admin can edit any)
+function updateAnnouncement($announcement_id, $author_id, $title, $description)
+{
     $conn = dbConnect();
-    
+
     $title = trim($title);
     $description = trim($description);
-    
-    if(empty($title) || empty($description)){
+
+    if (empty($title) || empty($description)) {
+        mysqli_close($conn);
         return false;
     }
-    
-    // Verify ownership
-    $sql = "SELECT id FROM announcements WHERE id = ? AND created_by = ? LIMIT 1";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $announcement_id, $author_id);
-    $stmt->execute();
-    
-    if($stmt->get_result()->num_rows === 0){
-        return false;
+
+    // Allow admin to edit any announcement regardless of creator
+    $sql = "UPDATE announcements SET title = ?, message = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        die("Prepare failed: " . mysqli_error($conn));
     }
-    
-    $sql = "UPDATE announcements SET title = ?, message = ? WHERE id = ? AND created_by = ?";
-    $stmt = $conn->prepare($sql);
-    
-    if(!$stmt){
-        die("Prepare failed: " . $conn->error);
-    }
-    
-    $stmt->bind_param("ssii", $title, $description, $announcement_id, $author_id);
-    
-    return $stmt->execute();
+
+    mysqli_stmt_bind_param($stmt, "ssi", $title, $description, $announcement_id);
+
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    return $result;
 }
 
 // Delete announcement (for admin)
-function deleteAnnouncement($announcement_id){
+function deleteAnnouncement($announcement_id)
+{
     $conn = dbConnect();
-    
+
     $sql = "DELETE FROM announcements WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    
-    if(!$stmt){
-        die("Prepare failed: " . $conn->error);
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        die("Prepare failed: " . mysqli_error($conn));
     }
-    
-    $stmt->bind_param("i", $announcement_id);
-    
-    return $stmt->execute();
+
+    mysqli_stmt_bind_param($stmt, "i", $announcement_id);
+
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    return $result;
 }
 
 ?>

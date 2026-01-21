@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CityWatch - Sign Up</title>
     <link rel="stylesheet" href="signup.css">
-    <script src="../Controller/signup.js"></script> 
+    <script src="../Controller/signup.js"></script>
 </head>
+
 <body>
 
     <header>
@@ -28,10 +30,12 @@
             <div class="container">
                 <h2>Create Account</h2>
 
-                <form class="signup-form" action="../Controller/AuthController.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
-                    
+                <form class="signup-form" action="../Controller/AuthController.php" method="POST"
+                    enctype="multipart/form-data" onsubmit="return validateForm()">
+
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your full name" required onkeyup="validateName()">
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required
+                        onkeyup="validateName()">
                     <span id="nameMessage"></span>
 
                     <label for="dob">Date of Birth</label>
@@ -39,24 +43,26 @@
                     <span id="dobMessage"></span>
 
                     <label for="mobile">Mobile Number</label>
-                    <input type="number" id="mobile" name="mobile" placeholder="Enter 11-digit mobile number" required onkeyup="validateMobile()">
+                    <input type="number" id="mobile" name="mobile" placeholder="Enter 11-digit mobile number" required
+                        onkeyup="validateMobile()">
                     <span id="mobileMessage"></span>
 
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
                     <label for="nid">NID Number</label>
-                    <input type="number" id="nid" name="nid" placeholder="Enter 10-digit NID" required onkeyup="validateNid()">
+                    <input type="number" id="nid" name="nid" placeholder="Enter 10-digit NID" required
+                        onkeyup="validateNid()">
                     <span id="nidMessage"></span>
 
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required onkeyup="validatePassword()">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required
+                        onkeyup="validatePassword()">
                     <span id="passwordMessage"></span>
 
                     <label for="profile_image">Profile Image</label>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">
 
-                    <button type="submit" name="signup">Sign Up</button>
 
                     <p>Already have an account? <a href="login.php">Login here</a></p>
                 </form>
@@ -69,4 +75,5 @@
     </footer>
 
 </body>
+
 </html>

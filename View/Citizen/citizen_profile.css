@@ -1,237 +1,213 @@
 /* Profile Page Layout */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 h2 {
-    margin-bottom: 20px;
-    color: #0277bd;
-    /* CityWatch Blue */
+  margin-bottom: 20px;
+  color: #0277bd;
+  /* CityWatch Blue */
 }
 
 .flash {
-    padding: 12px 14px;
-    background: #e8f5e9;
-    border: 1px solid #a5d6a7;
-    border-radius: 6px;
-    margin-bottom: 18px;
-    color: #2e7d32;
-    font-weight: 600;
+  padding: 12px 14px;
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  color: #2e7d32;
+  font-weight: 600;
 }
 
 /* Profile Card (Top Section) */
 .profileCard {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-    border: 1px solid #b3e5fc;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  border: 1px solid #b3e5fc;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .avatarCol {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 180px;
-    flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 180px;
+  flex-shrink: 0;
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #b3e5fc;
-    padding: 2px;
-    margin-bottom: 20px;
-    display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #b3e5fc;
+  padding: 2px;
+  margin-bottom: 20px;
+  display: block;
 }
 
 .uploadBtn {
-    display: block;
-    margin: 0;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    color: #0288d1;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: underline;
-    text-align: center;
-    background: transparent;
-    border: none;
-    width: 100%;
+  display: block;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #0288d1;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  background: transparent;
+  border: none;
+  width: 100%;
 }
 
 .uploadBtn:hover {
-    color: #01579b;
+  color: #01579b;
 }
 
 .uploadBtn input {
-    display: none;
+  display: none;
 }
 
 .uploadBtn input {
-    display: none;
+  display: none;
 }
 
 .avatarPreview {
-    display: none;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #b3e5fc;
-    margin-top: 15px;
+  display: none;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #b3e5fc;
+  margin-top: 15px;
 }
 
 .infoCol {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-width: 500px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 500px;
 }
 
 .infoRow {
-    display: grid;
-    grid-template-columns: 105px 1fr;
-    gap: 25px;
-    align-items: center;
-    font-size: 0.95rem;
-    color: #2c3e50;
-    background: #f7fbff;
-    border: 1px solid #e3f2fd;
-    border-radius: 8px;
-    padding: 12px 15px;
-    white-space: nowrap;
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  gap: 25px;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  background: #f7fbff;
+  border: 1px solid #e3f2fd;
+  border-radius: 8px;
+  padding: 12px 15px;
+  white-space: nowrap;
 }
 
 .infoRow .label {
-    font-weight: 700;
-    color: #0277bd;
-    white-space: nowrap;
+  font-weight: 700;
+  color: #0277bd;
+  white-space: nowrap;
 }
 
 .infoRow .value {
-    color: #37474f;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: #37474f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Edit & Password Cards */
 .card {
-    background: #fff;
-    padding: 30px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #b3e5fc;
+  background: #fff;
+  padding: 30px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  border: 1px solid #b3e5fc;
 }
 
 .card h3 {
-    margin-bottom: 20px;
-    color: #0277bd;
-    border-bottom: 1px solid #e1f5fe;
-    padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #0277bd;
+  border-bottom: 1px solid #e1f5fe;
+  padding-bottom: 10px;
 }
 
 /* Form Grid Layout */
 .formGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .field.full {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: sans-serif;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: sans-serif;
 }
 
 input:focus {
-    border-color: #0288d1;
-    outline: none;
+  border-color: #0288d1;
+  outline: none;
 }
 
 .hint {
-    font-size: 0.85rem;
-    color: #777;
-    margin-top: 5px;
-    display: block;
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 5px;
+  display: block;
 }
 
 /* Buttons */
 button.primary {
-    background: #0288d1;
-    /* Blue */
-    color: #fff;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 100%;
+  background: #0288d1;
+  /* Blue */
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
 }
 
 button.primary:hover {
-    background: #01579b;
-    /* Darker Blue */
+  background: #01579b;
+  /* Darker Blue */
 }
 
 /* Readonly fields styling */
 .readonly-field {
-    background-color: #e1f5fe;
-    /* Very light blue background */
-    color: #555;
-    cursor: not-allowed;
-    border-color: #b3e5fc;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .profileCard {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .infoRow span {
-        display: block;
-        width: 100%;
-        margin-bottom: 2px;
-    }
-
-    .formGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .field.full {
-        grid-column: span 1;
-    }
+  background-color: #e1f5fe;
+  /* Very light blue background */
+  color: #555;
+  cursor: not-allowed;
+  border-color: #b3e5fc;
 }

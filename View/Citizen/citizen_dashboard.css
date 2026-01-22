@@ -6,7 +6,6 @@
     background-color: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* 2. Search Form Elements */
@@ -25,7 +24,7 @@
 }
 
 .search-form button {
-    background-color: #0288d1; /* CityWatch Blue */
+    background-color: skyblue; /* CityWatch Blue */
     color: white;
     padding: 10px 15px;
     border: none;
@@ -44,7 +43,6 @@
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
 }
 
 .incident-card h3 {
@@ -88,7 +86,6 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    transition: background-color 0.2s;
 }
 
 .btn.upvote {

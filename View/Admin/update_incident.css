@@ -1,155 +1,153 @@
 /* Styling for the search form */
 .search-form {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
 }
 
 /* Styling for the search input */
 .search-form input {
-    padding: 10px;
-    width: 300px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    margin-right: 10px;
+  padding: 10px;
+  width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 /* Styling for the search button */
 .search-form button {
-    padding: 10px 20px;
-    background-color: #0288d1; /* CityWatch Blue */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+  padding: 10px 20px;
+  background-color: #0288d1; /* CityWatch Blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /* Hover effect for search button */
 .search-form button:hover {
-    background-color: #01579b;
+  background-color: #01579b;
 }
 
 /* Styling for the form container */
 .update-incident-form {
-    width: 100%;
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #b3e5fc;
+  width: 100%;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #b3e5fc;
 }
 
 /* Styling for the form input fields */
 .update-incident-form label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-    color: #555;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #555;
 }
 
 .update-incident-form input[type="text"],
 .update-incident-form textarea,
 .update-incident-form input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
-    font-family: sans-serif;
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 /* Focus styles */
 .update-incident-form input:focus,
 .update-incident-form textarea:focus {
-    border-color: #0288d1;
-    outline: none;
+  border-color: #0288d1;
+  outline: none;
 }
 
 /* Styling for the submit button */
 .update-incident-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #0288d1; /* CityWatch Blue */
-    color: white;
-    border: none;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
+  width: 100%;
+  padding: 12px;
+  background-color: #0288d1; /* CityWatch Blue */
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .update-incident-form button:hover {
-    background-color: #01579b;
+  background-color: #01579b;
 }
 
 /* Image Display Styling */
 .incident-images-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px dashed #b3e5fc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px dashed #b3e5fc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
 .incident-image {
-    max-width: 150px;
-    height: auto;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+  max-width: 150px;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
 /* Status messages */
 .status-message {
-    margin-bottom: 20px;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .status-message p {
-    font-weight: bold;
-    margin: 0;
+  font-weight: bold;
+  margin: 0;
 }
 
 /* Sidebar override (matches dashboard) */
 .sidebar {
-    width: 220px;
-    height: 100vh;
-    background-color: #0277bd;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 20px;
-    text-align: center;
+  width: 220px;
+  height: 100vh;
+  background-color: #0277bd;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  text-align: center;
 }
 
 .content {
-    margin-left: 220px;
-    padding: 30px;
-    background-color: aliceblue;
-    min-height: 100vh;
+  margin-left: 220px;
+  padding: 30px;
+  background-color: aliceblue;
+  min-height: 100vh;
 }
 
 h2 {
-    color: #0277bd;
-    margin-bottom: 5px;
+  color: #0277bd;
+  margin-bottom: 5px;
 }
 
 .subtitle {
-    color: #666;
-    margin-bottom: 20px;
+  color: #666;
+  margin-bottom: 20px;
 }
